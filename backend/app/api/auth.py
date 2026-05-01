@@ -3,6 +3,9 @@ Authentication API endpoints.
 """
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
 
 from app.core.database import get_db
 from app.dependencies import get_current_user_id
@@ -14,6 +17,11 @@ from app.core.logging import get_logger
 logger = get_logger(__name__)
 
 router = APIRouter()
+
+
+class GoogleAuthRequest(BaseModel):
+    """Google OAuth token request"""
+    token: str
 
 
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
@@ -89,3 +97,76 @@ async def get_current_user(
         email=user.email,
         token=""  # No new token needed for /me endpoint
     )
+
+
+@router.post("/google", response_model=UserResponse)
+async def google_auth(
+    auth_request: GoogleAuthRequest,
+    db: Session = Depends(get_db)
+):
+    """
+    Authenticate with Google OAuth.
+    
+    - **token**: Google ID token from frontend
+    
+    Returns user information and JWT token.
+    """
+    try:
+        # Verify the Google token
+        # Note: In production, you should specify your Google Client ID
+        idinfo = id_token.verify_oauth2_token(
+            auth_request.token,
+            google_requests.Request()
+        )
+        
+        # Get user email from Google token
+        email = idinfo.get('email')
+        if not email:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email not found in Google token"
+            )
+        
+        # Check if user exists, if not create one
+        from app.repositories.user_repository import UserRepository
+        from app.models.user import User
+        from app.core.security import create_access_token
+        import uuid
+        
+        user_repo = UserRepository(db)
+        user = user_repo.get_user_by_email(email)
+        
+        if not user:
+            # Create new user with Google email
+            user = User(
+                id=uuid.uuid4(),
+                email=email,
+                password_hash=""  # No password for Google OAuth users
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+            logger.info(f"Created new user via Google OAuth: {email}")
+        
+        # Generate JWT token
+        token = create_access_token({"sub": str(user.id)})
+        
+        return UserResponse(
+            user_id=str(user.id),
+            email=user.email,
+            token=token
+        )
+        
+    except ValueError as e:
+        # Invalid token
+        logger.error(f"Invalid Google token: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Google token"
+        )
+    except Exception as e:
+        logger.error(f"Google auth error: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Authentication failed"
+        )

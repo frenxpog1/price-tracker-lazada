@@ -15,6 +15,10 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import axios from 'axios';
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -64,6 +68,38 @@ export default function LoginPage() {
     
     setPasswordError('');
     return true;
+  };
+
+  /**
+   * Handles Google OAuth success
+   */
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    try {
+      setError('');
+      
+      // Send Google token to backend
+      const response = await axios.post('http://localhost:8000/api/auth/google', {
+        token: credentialResponse.credential
+      });
+      
+      // Store token and user data
+      const { token, user_id, email } = response.data;
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify({ user_id, email }));
+      
+      // Redirect to dashboard
+      navigate('/dashboard');
+    } catch (err: any) {
+      console.error('Google login error:', err);
+      setError('Failed to sign in with Google. Please try again.');
+    }
+  };
+
+  /**
+   * Handles Google OAuth error
+   */
+  const handleGoogleError = () => {
+    setError('Google sign-in was cancelled or failed. Please try again.');
   };
 
   /**
@@ -145,36 +181,61 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-500 via-primary-600 to-purple-600 px-4">
-      <div className="w-full max-w-md">
-        {/* Logo and Title */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl shadow-lg mb-4">
-            <svg className="w-10 h-10 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-500 via-primary-600 to-purple-600 px-4">
+        <div className="w-full max-w-md">
+          {/* Logo and Title */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl shadow-lg mb-4">
+              <svg className="w-10 h-10 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h1 className="text-4xl font-bold text-white mb-2">PriceTracker</h1>
+            <p className="text-primary-100">Track prices, save money</p>
           </div>
-          <h1 className="text-4xl font-bold text-white mb-2">PriceTracker</h1>
-          <p className="text-primary-100">Track prices, save money</p>
-        </div>
 
-        {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <h2 className="text-2xl font-bold text-neutral-900 mb-6">Welcome Back</h2>
-          
-          {/* General Error Message */}
-          {error && (
-            <div className="mb-5 p-4 bg-error-50 border border-error-200 rounded-lg">
-              <div className="flex items-start">
-                <svg className="h-5 w-5 text-error-500 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <p className="text-sm text-error-700">{error}</p>
+          {/* Login Card */}
+          <div className="bg-white rounded-2xl shadow-2xl p-8">
+            <h2 className="text-2xl font-bold text-neutral-900 mb-6">Welcome Back</h2>
+            
+            {/* General Error Message */}
+            {error && (
+              <div className="mb-5 p-4 bg-error-50 border border-error-200 rounded-lg">
+                <div className="flex items-start">
+                  <svg className="h-5 w-5 text-error-500 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <p className="text-sm text-error-700">{error}</p>
+                </div>
+              </div>
+            )}
+            
+            {/* Google Sign-In Button */}
+            <div className="mb-6">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleError}
+                useOneTap
+                theme="outline"
+                size="large"
+                text="signin_with"
+                shape="rectangular"
+                logo_alignment="left"
+              />
+            </div>
+
+            {/* Divider */}
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-neutral-200"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-4 bg-white text-neutral-500">Or continue with email</span>
               </div>
             </div>
-          )}
-          
-          <form onSubmit={handleSubmit} className="space-y-5">
+            
+            <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email Input */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
@@ -272,5 +333,6 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+    </GoogleOAuthProvider>
   );
 }
