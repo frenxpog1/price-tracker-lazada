@@ -63,7 +63,15 @@ class LazadaSeleniumScraper(BaseScraper):
         chrome_options.add_experimental_option('prefs', prefs)
         
         # Use webdriver-manager to automatically download and manage ChromeDriver
-        service = Service(ChromeDriverManager().install())
+        driver_path = ChromeDriverManager().install()
+        # Fix for webdriver-manager bug: ensure we use the actual chromedriver executable
+        if 'THIRD_PARTY_NOTICES' in driver_path or not driver_path.endswith('chromedriver'):
+            import os
+            driver_dir = os.path.dirname(driver_path)
+            actual_driver = os.path.join(driver_dir, 'chromedriver')
+            if os.path.exists(actual_driver):
+                driver_path = actual_driver
+        service = Service(driver_path)
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
         self.driver.set_page_load_timeout(15)  # Reduced from 30
         
