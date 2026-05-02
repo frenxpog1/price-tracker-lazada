@@ -138,9 +138,9 @@ export default function DashboardPage() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
-        <div className="mb-8 text-center animate-fade-in">
-          <h1 className="text-5xl font-bold gradient-text mb-4">Discover Best Deals</h1>
-          <p className="text-dark-600 text-lg">Track prices and save money across multiple platforms</p>
+        <div className="mb-8 text-center fade-in">
+          <h1 className="text-5xl font-bold text-white mb-4">Discover Best Deals</h1>
+          <p className="text-white/50 text-lg">Track prices and save money across multiple platforms</p>
         </div>
 
         {/* Statistics Dashboard */}
@@ -159,10 +159,10 @@ export default function DashboardPage() {
 
         {/* Search Error Message */}
         {searchError && (
-          <div className="mb-8 p-4 bg-error-50 border border-error-200 rounded-xl">
+          <div className="mb-8 modern-card p-4 border-red-500/20">
             <div className="flex items-start">
               <svg 
-                className="w-5 h-5 text-error-500 mt-0.5 mr-3 flex-shrink-0" 
+                className="w-5 h-5 text-red-400 mt-0.5 mr-3 flex-shrink-0" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -175,8 +175,8 @@ export default function DashboardPage() {
                 />
               </svg>
               <div>
-                <h3 className="text-sm font-semibold text-error-800 mb-1">Search Error</h3>
-                <p className="text-sm text-error-700">{searchError}</p>
+                <h3 className="text-sm font-semibold text-white mb-1">Search Error</h3>
+                <p className="text-sm text-white/60">{searchError}</p>
               </div>
             </div>
           </div>
@@ -184,10 +184,10 @@ export default function DashboardPage() {
 
         {/* Platform Warnings - Requirement: 9.1 */}
         {searchResults && searchResults.platforms_failed.length > 0 && (
-          <div className="mb-8 p-4 bg-warning-50 border border-warning-200 rounded-xl">
+          <div className="mb-8 modern-card p-4 border-yellow-500/20">
             <div className="flex items-start">
               <svg 
-                className="w-5 h-5 text-warning-500 mt-0.5 mr-3 flex-shrink-0" 
+                className="w-5 h-5 text-yellow-400 mt-0.5 mr-3 flex-shrink-0" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -200,8 +200,8 @@ export default function DashboardPage() {
                 />
               </svg>
               <div>
-                <h3 className="text-sm font-semibold text-warning-800 mb-1">Platform Warning</h3>
-                <p className="text-sm text-warning-700">
+                <h3 className="text-sm font-semibold text-white mb-1">Platform Warning</h3>
+                <p className="text-sm text-white/60">
                   Some platforms were unavailable: {searchResults.platforms_failed.join(', ')}. 
                   Results shown are from available platforms only.
                 </p>
@@ -214,7 +214,7 @@ export default function DashboardPage() {
         {searchResults && searchResults.results.length === 0 && (
           <div className="mb-12 text-center py-12">
             <svg 
-              className="mx-auto h-16 w-16 text-neutral-400 mb-4" 
+              className="mx-auto h-16 w-16 text-white/20 mb-4" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -226,8 +226,8 @@ export default function DashboardPage() {
                 d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
               />
             </svg>
-            <h3 className="text-xl font-semibold text-neutral-900 mb-2">No Products Found</h3>
-            <p className="text-neutral-600 max-w-md mx-auto">
+            <h3 className="text-xl font-semibold text-white mb-2">No Products Found</h3>
+            <p className="text-white/50 max-w-md mx-auto">
               We couldn't find any products matching your search. Try different keywords or check back later.
             </p>
           </div>
@@ -237,23 +237,23 @@ export default function DashboardPage() {
         {searchResults && searchResults.results.length > 0 && (
           <div className="mb-12">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-neutral-900">
+              <h2 className="text-2xl font-bold text-white">
                 Search Results ({searchResults.total_results})
               </h2>
-              <p className="text-sm text-neutral-600">
+              <p className="text-sm text-white/50">
                 Found in {searchResults.search_time_seconds.toFixed(2)}s
               </p>
             </div>
 
             {/* Simple Pagination and Sort Controls */}
             {searchQuery && (
-              <div className="flex items-center justify-between mb-6 p-4 bg-white rounded-xl border border-neutral-200">
+              <div className="flex items-center justify-between mb-6 modern-card p-4">
                 <div className="flex items-center space-x-3">
-                  <label className="text-sm font-medium text-neutral-700">Sort:</label>
+                  <label className="text-sm font-medium text-white/70">Sort:</label>
                   <select
                     value={sortBy}
                     onChange={(e) => handleSortChange(e.target.value)}
-                    className="px-3 py-2 border border-neutral-300 rounded-lg text-sm"
+                    className="modern-input py-2 text-sm"
                   >
                     <option value="best_match">Best Match</option>
                     <option value="price_asc">Price: Low to High</option>
@@ -265,14 +265,14 @@ export default function DashboardPage() {
                   <button
                     onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
-                    className="px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition-fast"
+                    className="px-4 py-2 text-sm font-medium text-white bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-fast"
                   >
                     ← Previous
                   </button>
-                  <span className="text-sm text-neutral-600">Page {currentPage}</span>
+                  <span className="text-sm text-white/70">Page {currentPage}</span>
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
-                    className="px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-fast"
+                    className="px-4 py-2 text-sm font-medium text-white bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-fast"
                   >
                     Next →
                   </button>
@@ -297,19 +297,19 @@ export default function DashboardPage() {
         {!searchResults && (
           <div className="text-center py-12">
             <div className="max-w-md mx-auto">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-neutral-900 mb-2">Start Searching</h3>
-              <p className="text-neutral-600 mb-6">
+              <h3 className="text-xl font-semibold text-white mb-2">Start Searching</h3>
+              <p className="text-white/50 mb-6">
                 Search for products across multiple e-commerce platforms and set up price alerts to get notified when prices drop.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <a
                   href="/tracked"
-                  className="inline-flex items-center px-4 py-2 bg-neutral-100 text-neutral-700 rounded-lg hover:bg-neutral-200 transition-colors"
+                  className="inline-flex items-center px-4 py-2 bg-white/5 text-white border border-white/10 rounded-lg hover:bg-white/10 transition-colors"
                 >
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />

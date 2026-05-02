@@ -46,6 +46,8 @@ class Settings(BaseSettings):
     # Scraping
     SCRAPER_TIMEOUT: int = 10  # seconds
     SCRAPER_USER_AGENT: str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    SCRAPER_SERVICE_URL: str = "http://localhost:8001"  # External scraper service URL
+    LAZADA_API_URL: Optional[str] = None  # External Lazada API service (Render)
     
     # Celery
     CELERY_BROKER_URL: str = "redis://localhost:6379/0"

@@ -194,11 +194,11 @@ export default function SearchBar({
 
   return (
     <form onSubmit={handleSubmit} className="mb-12">
-      <div className="relative max-w-3xl">
+      <div className="relative max-w-3xl mx-auto">
         {/* Search Icon */}
         <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
           <svg 
-            className="h-5 w-5 text-neutral-400" 
+            className="h-5 w-5 text-white/40" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -218,7 +218,7 @@ export default function SearchBar({
           type="text"
           value={query}
           onChange={handleInputChange}
-          className="block w-full pl-12 pr-24 py-4 text-lg border border-neutral-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm transition-fast"
+          className="modern-input block w-full pl-12 pr-24 py-4 text-lg"
           placeholder={placeholder}
           aria-label="Search products"
         />
@@ -229,7 +229,7 @@ export default function SearchBar({
           {isSearching && (
             <div className="flex items-center" aria-live="polite" aria-busy="true">
               <svg 
-                className="animate-spin h-5 w-5 text-primary-500" 
+                className="animate-spin h-5 w-5 text-white" 
                 fill="none" 
                 viewBox="0 0 24 24"
                 aria-label="Searching"
@@ -248,7 +248,7 @@ export default function SearchBar({
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 />
               </svg>
-              <span className="ml-2 text-sm text-neutral-600">Searching...</span>
+              <span className="ml-2 text-sm text-white/60">Searching...</span>
             </div>
           )}
 
@@ -257,7 +257,7 @@ export default function SearchBar({
             <button
               type="button"
               onClick={handleClear}
-              className="text-neutral-400 hover:text-neutral-600 transition-fast"
+              className="text-white/40 hover:text-white/70 transition-fast"
               aria-label="Clear search"
             >
               <svg 

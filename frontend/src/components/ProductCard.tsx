@@ -131,9 +131,9 @@ export default function ProductCard({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-200 hover:-translate-y-1 overflow-hidden">
+    <div className="modern-card overflow-hidden">
       {/* Product Image */}
-      <div className="aspect-square bg-neutral-100 relative group">
+      <div className="aspect-square bg-black/20 relative group">
         <img 
           src={product.image_url || PLACEHOLDER_IMAGE} 
           alt={product.product_name}
@@ -163,7 +163,7 @@ export default function ProductCard({
         
         {/* Availability Badge (overlay on image) */}
         {!product.availability && (
-          <div className="absolute top-2 right-2 bg-error-500 text-white px-2.5 py-1 rounded-full text-xs font-semibold shadow-md">
+          <div className="absolute top-2 right-2 bg-red-500 text-white px-2.5 py-1 rounded-full text-xs font-semibold">
             Out of Stock
           </div>
         )}
@@ -181,7 +181,7 @@ export default function ProductCard({
           
           {/* Availability Indicator (text) */}
           {product.availability && (
-            <span className="text-xs text-success-600 font-medium flex items-center">
+            <span className="text-xs text-green-400 font-medium flex items-center">
               <svg 
                 className="w-3 h-3 mr-1" 
                 fill="currentColor" 
@@ -201,7 +201,7 @@ export default function ProductCard({
 
         {/* Product Name */}
         <h3 
-          className="text-lg font-semibold text-neutral-900 mb-2 line-clamp-2 min-h-[3.5rem] cursor-pointer hover:text-primary-600 transition-colors"
+          className="text-lg font-semibold text-white mb-2 line-clamp-2 min-h-[3.5rem] cursor-pointer hover:text-white/80 transition-colors"
           onClick={handleProductClick}
           title="Click to view product page"
         >
@@ -209,7 +209,7 @@ export default function ProductCard({
         </h3>
 
         {/* Price */}
-        <p className="text-2xl font-bold text-primary-500 mb-4">
+        <p className="text-2xl font-bold text-white mb-4">
           {formatPrice(product.current_price, product.currency)}
         </p>
 
@@ -219,8 +219,8 @@ export default function ProductCard({
           disabled={isTracking || !product.availability}
           className={`w-full py-2.5 px-4 rounded-lg font-semibold transition-fast ${
             isTracking || !product.availability
-              ? 'bg-neutral-300 text-neutral-500 cursor-not-allowed'
-              : 'bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700'
+              ? 'bg-white/5 text-white/30 cursor-not-allowed'
+              : 'modern-button'
           }`}
           aria-label={`Track ${product.product_name}`}
         >
@@ -260,7 +260,7 @@ export default function ProductCard({
           href={product.product_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="block mt-3 text-center text-sm text-neutral-600 hover:text-primary-500 transition-fast"
+          className="block mt-3 text-center text-sm text-white/40 hover:text-white/70 transition-fast"
         >
           View on {product.platform}
           <svg 

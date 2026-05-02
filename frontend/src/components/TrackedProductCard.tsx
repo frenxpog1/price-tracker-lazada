@@ -186,7 +186,7 @@ export default function TrackedProductCard({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+    <div className="modern-card overflow-hidden">
       {/* Product Header */}
       <div className="p-6">
         <div className="flex items-start space-x-4">
@@ -235,7 +235,7 @@ export default function TrackedProductCard({
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between mb-2">
               <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-semibold text-neutral-900 mb-1 line-clamp-2">
+                <h3 className="text-lg font-semibold text-white mb-1 line-clamp-2">
                   {product.product_name}
                 </h3>
                 <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPlatformBadgeColor(product.platform)}`}>
@@ -247,7 +247,7 @@ export default function TrackedProductCard({
               <div className="flex items-center space-x-2 ml-4">
                 <button
                   onClick={() => onViewHistory?.(product.id)}
-                  className="text-neutral-400 hover:text-neutral-600 transition-fast"
+                  className="text-white/40 hover:text-white/70 transition-fast"
                   title="View price history"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -257,7 +257,7 @@ export default function TrackedProductCard({
                 <button
                   onClick={() => setShowDeleteConfirm(true)}
                   disabled={isDeleting}
-                  className="text-neutral-400 hover:text-error-600 transition-fast disabled:opacity-50"
+                  className="text-white/40 hover:text-red-400 transition-fast disabled:opacity-50"
                   title="Delete tracked product"
                 >
                   {isDeleting ? (
@@ -292,29 +292,29 @@ export default function TrackedProductCard({
         <div className="mt-4 grid grid-cols-3 gap-4">
           {/* Current Price */}
           <div>
-            <p className="text-sm text-neutral-600 mb-1">Current Price</p>
-            <p className="text-2xl font-bold text-neutral-900">
+            <p className="text-sm text-white/50 mb-1">Current Price</p>
+            <p className="text-2xl font-bold text-white">
               {formatPrice(product.current_price, product.currency)}
             </p>
           </div>
 
           {/* Target Price */}
           <div>
-            <p className="text-sm text-neutral-600 mb-1">Target Price</p>
+            <p className="text-sm text-white/50 mb-1">Target Price</p>
             {isEditingThreshold ? (
               <div className="flex items-center space-x-2">
                 <input
                   type="number"
                   value={newThreshold}
                   onChange={(e) => setNewThreshold(e.target.value)}
-                  className="w-20 px-2 py-1 text-sm border border-neutral-300 rounded focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-20 px-2 py-1 text-sm modern-input"
                   step="0.01"
                   min="0"
                 />
                 <button
                   onClick={handleUpdateThreshold}
                   disabled={isUpdatingThreshold}
-                  className="text-success-600 hover:text-success-700 disabled:opacity-50"
+                  className="text-green-400 hover:text-green-300 disabled:opacity-50"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -322,7 +322,7 @@ export default function TrackedProductCard({
                 </button>
                 <button
                   onClick={handleCancelEdit}
-                  className="text-neutral-400 hover:text-neutral-600"
+                  className="text-white/40 hover:text-white/70"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -331,12 +331,12 @@ export default function TrackedProductCard({
               </div>
             ) : (
               <div className="flex items-center space-x-2">
-                <p className="text-2xl font-bold text-neutral-900">
+                <p className="text-2xl font-bold text-white">
                   {formatPrice(product.price_threshold, product.currency)}
                 </p>
                 <button
                   onClick={() => setIsEditingThreshold(true)}
-                  className="text-neutral-400 hover:text-primary-600 transition-fast"
+                  className="text-white/40 hover:text-white transition-fast"
                   title="Edit threshold"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -349,10 +349,10 @@ export default function TrackedProductCard({
 
           {/* Status */}
           <div>
-            <p className="text-sm text-neutral-600 mb-1">Status</p>
+            <p className="text-sm text-white/50 mb-1">Status</p>
             {isBelowThreshold ? (
               <div className="flex items-center">
-                <span className="inline-flex items-center text-success-600 font-semibold">
+                <span className="inline-flex items-center text-green-400 font-semibold">
                   <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
@@ -365,7 +365,7 @@ export default function TrackedProductCard({
                 )}
               </div>
             ) : (
-              <span className="inline-flex items-center text-warning-600 font-semibold">
+              <span className="inline-flex items-center text-yellow-400 font-semibold">
                 <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                 </svg>
@@ -377,7 +377,7 @@ export default function TrackedProductCard({
 
         {/* Last Checked */}
         {product.last_checked && (
-          <div className="mt-4 text-sm text-neutral-500">
+          <div className="mt-4 text-sm text-white/40">
             Last checked: {new Date(product.last_checked).toLocaleString()}
           </div>
         )}
@@ -386,22 +386,22 @@ export default function TrackedProductCard({
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-sm mx-4">
-            <h3 className="text-lg font-semibold text-neutral-900 mb-2">Delete Tracked Product</h3>
-            <p className="text-neutral-600 mb-4">
+          <div className="modern-card p-6 max-w-sm mx-4">
+            <h3 className="text-lg font-semibold text-white mb-2">Delete Tracked Product</h3>
+            <p className="text-white/60 mb-4">
               Are you sure you want to stop tracking "{product.product_name}"? This action cannot be undone.
             </p>
             <div className="flex space-x-3">
               <button
                 onClick={handleDelete}
                 disabled={isDeleting}
-                className="flex-1 px-4 py-2 bg-error-600 text-white rounded-lg hover:bg-error-700 disabled:opacity-50 transition-fast"
+                className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:opacity-50 transition-fast"
               >
                 {isDeleting ? 'Deleting...' : 'Delete'}
               </button>
               <button
                 onClick={() => setShowDeleteConfirm(false)}
-                className="flex-1 px-4 py-2 bg-neutral-200 text-neutral-800 rounded-lg hover:bg-neutral-300 transition-fast"
+                className="flex-1 px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-fast"
               >
                 Cancel
               </button>

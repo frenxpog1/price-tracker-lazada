@@ -199,20 +199,20 @@ export default function TrackedProductsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-transparent">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-neutral-200">
+      <div className="border-b border-white/10 backdrop-blur-xl bg-black/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-neutral-900">Tracked Products</h1>
-              <p className="text-neutral-600 mt-1">Manage your price alerts and monitoring</p>
+              <h1 className="text-3xl font-bold text-white">Tracked Products</h1>
+              <p className="text-white/50 mt-1">Manage your price alerts and monitoring</p>
             </div>
             
             <button
               onClick={loadTrackedProducts}
               disabled={isLoadingTracked}
-              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 flex items-center space-x-2"
+              className="modern-button flex items-center space-x-2"
             >
               <svg className={`w-4 h-4 ${isLoadingTracked ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -227,56 +227,56 @@ export default function TrackedProductsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="modern-card p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="p-2 bg-blue-500/20 rounded-lg">
+                <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-neutral-600">Total Products</p>
-                <p className="text-2xl font-bold text-neutral-900">{stats.total}</p>
+                <p className="text-sm font-medium text-white/60">Total Products</p>
+                <p className="text-2xl font-bold text-white">{stats.total}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="modern-card p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-success-100 rounded-lg">
-                <svg className="w-6 h-6 text-success-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="p-2 bg-green-500/20 rounded-lg">
+                <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-neutral-600">Below Target</p>
-                <p className="text-2xl font-bold text-success-600">{stats.belowThreshold}</p>
+                <p className="text-sm font-medium text-white/60">Below Target</p>
+                <p className="text-2xl font-bold text-green-400">{stats.belowThreshold}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="modern-card p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-purple-100 rounded-lg">
-                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="p-2 bg-purple-500/20 rounded-lg">
+                <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-neutral-600">Platforms</p>
-                <p className="text-2xl font-bold text-purple-600">{stats.platforms}</p>
+                <p className="text-sm font-medium text-white/60">Platforms</p>
+                <p className="text-2xl font-bold text-purple-400">{stats.platforms}</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Filters and Search */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+        <div className="modern-card p-6 mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 md:space-x-4">
             {/* Search */}
             <div className="flex-1 max-w-md">
               <div className="relative">
-                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <input
@@ -284,7 +284,7 @@ export default function TrackedProductsPage() {
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="modern-input w-full pl-10 pr-4 py-2"
                 />
               </div>
             </div>
@@ -294,7 +294,7 @@ export default function TrackedProductsPage() {
               <select
                 value={filterPlatform}
                 onChange={(e) => setFilterPlatform(e.target.value)}
-                className="px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="modern-input px-3 py-2"
               >
                 <option value="all">All Platforms</option>
                 <option value="lazada">Lazada</option>
@@ -305,7 +305,7 @@ export default function TrackedProductsPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="modern-input px-3 py-2"
               >
                 <option value="created_at">Newest First</option>
                 <option value="name">Product Name</option>
@@ -320,7 +320,7 @@ export default function TrackedProductsPage() {
         {/* Products List */}
         {isLoadingTracked ? (
           <div className="flex items-center justify-center py-12">
-            <div className="flex items-center space-x-2 text-neutral-500">
+            <div className="flex items-center space-x-2 text-white/50">
               <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
@@ -331,7 +331,7 @@ export default function TrackedProductsPage() {
         ) : filteredAndSortedProducts.length === 0 ? (
           <div className="text-center py-12">
             <svg 
-              className="mx-auto h-16 w-16 text-neutral-400 mb-4" 
+              className="mx-auto h-16 w-16 text-white/20 mb-4" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -343,10 +343,10 @@ export default function TrackedProductsPage() {
                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" 
               />
             </svg>
-            <h3 className="text-xl font-semibold text-neutral-900 mb-2">
+            <h3 className="text-xl font-semibold text-white mb-2">
               {trackedProducts.length === 0 ? 'No Tracked Products' : 'No Products Match Your Filters'}
             </h3>
-            <p className="text-neutral-600 max-w-md mx-auto mb-4">
+            <p className="text-white/50 max-w-md mx-auto mb-4">
               {trackedProducts.length === 0 
                 ? 'Start tracking products by searching and clicking the "Track" button on products you\'re interested in.'
                 : 'Try adjusting your search or filter criteria to find the products you\'re looking for.'
@@ -355,7 +355,7 @@ export default function TrackedProductsPage() {
             {trackedProducts.length === 0 && (
               <a
                 href="/"
-                className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+                className="modern-button inline-flex items-center"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -384,16 +384,16 @@ export default function TrackedProductsPage() {
       {/* Price History Modal */}
       {selectedProductForHistory && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="modern-card max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-neutral-200">
+            <div className="flex items-center justify-between p-6 border-b border-white/10">
               <div>
-                <h2 className="text-xl font-semibold text-neutral-900">Price History</h2>
-                <p className="text-neutral-600 mt-1">{selectedProductForHistory.product_name}</p>
+                <h2 className="text-xl font-semibold text-white">Price History</h2>
+                <p className="text-white/60 mt-1">{selectedProductForHistory.product_name}</p>
               </div>
               <button
                 onClick={closePriceHistoryModal}
-                className="text-neutral-400 hover:text-neutral-600 transition-fast"
+                className="text-white/40 hover:text-white/70 transition-fast"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
