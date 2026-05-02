@@ -4,6 +4,7 @@ Loads settings from environment variables with sensible defaults.
 """
 from pydantic_settings import BaseSettings
 from typing import Optional
+import json
 
 
 class Settings(BaseSettings):
@@ -25,6 +26,10 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440  # 24 hours
     
+    # Google OAuth
+    GOOGLE_CLIENT_ID: Optional[str] = None
+    GOOGLE_CLIENT_SECRET: Optional[str] = None
+    
     # SMTP Email
     SMTP_HOST: str = "smtp.gmail.com"
     SMTP_PORT: int = 587
@@ -35,7 +40,7 @@ class Settings(BaseSettings):
     # Frontend
     FRONTEND_URL: str = "http://localhost:3000"
     
-    # CORS
+    # CORS - can be a JSON string or list
     CORS_ORIGINS: list[str] = ["http://localhost:3000"]
     
     # Scraping
@@ -52,6 +57,14 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        
+        @classmethod
+        def parse_env_var(cls, field_name: str, raw_val: str):
+            # Parse CORS_ORIGINS if it's a JSON string
+            if field_name == 'CORS_ORIGINS':
+                if isinstance(raw_val, str) and raw_val.startswith('['):
+                    return json.loads(raw_val)
+            return raw_val
 
 
 # Global settings instance
