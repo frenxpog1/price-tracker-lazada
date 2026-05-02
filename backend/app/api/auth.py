@@ -111,10 +111,17 @@ async def google_auth(
     
     Returns user information and JWT token.
     """
+    error_details = []
+    
     try:
         from app.config import settings
         
-        logger.info(f"Google OAuth attempt - Client ID configured: {bool(settings.GOOGLE_CLIENT_ID)}")
+        # Check if Client ID is configured
+        if not settings.GOOGLE_CLIENT_ID:
+            error_details.append("GOOGLE_CLIENT_ID not configured")
+            raise ValueError("GOOGLE_CLIENT_ID not set")
+        
+        error_details.append(f"Client ID configured: {settings.GOOGLE_CLIENT_ID[:20]}...")
         
         # Verify the Google token with our Client ID
         try:
@@ -123,21 +130,21 @@ async def google_auth(
                 google_requests.Request(),
                 settings.GOOGLE_CLIENT_ID
             )
-            logger.info("Google token verified successfully")
+            error_details.append("Token verified successfully")
         except Exception as verify_error:
-            logger.error(f"Token verification failed: {type(verify_error).__name__}: {str(verify_error)}")
+            error_details.append(f"Token verification failed: {type(verify_error).__name__}: {str(verify_error)}")
             raise
         
         # Get user email from Google token
         email = idinfo.get('email')
         if not email:
-            logger.error("No email in Google token")
+            error_details.append("No email in token")
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Email not found in Google token"
+                detail={"error": "Email not found in Google token", "debug": error_details}
             )
         
-        logger.info(f"Google OAuth for email: {email}")
+        error_details.append(f"Email extracted: {email}")
         
         # Check if user exists, if not create one
         from app.repositories.user_repository import UserRepository
@@ -149,7 +156,7 @@ async def google_auth(
         user = user_repo.get_user_by_email(email)
         
         if not user:
-            logger.info(f"Creating new user for: {email}")
+            error_details.append("Creating new user")
             # Create new user with Google email
             user = User(
                 id=uuid.uuid4(),
@@ -159,14 +166,13 @@ async def google_auth(
             db.add(user)
             db.commit()
             db.refresh(user)
-            logger.info(f"Created new user via Google OAuth: {email}")
+            error_details.append("User created successfully")
         else:
-            logger.info(f"Existing user found: {email}")
+            error_details.append("Existing user found")
         
         # Generate JWT token
         token = create_access_token({"sub": str(user.id)})
-        
-        logger.info(f"Google OAuth successful for: {email}")
+        error_details.append("JWT token generated")
         
         return UserResponse(
             user_id=str(user.id),
@@ -174,18 +180,13 @@ async def google_auth(
             token=token
         )
         
-    except ValueError as e:
-        # Invalid token
-        logger.error(f"Invalid Google token - ValueError: {str(e)}", exc_info=True)
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"Invalid Google token: {str(e)}"
-        )
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Google auth error - {type(e).__name__}: {str(e)}", exc_info=True)
+        error_msg = f"{type(e).__name__}: {str(e)}"
+        error_details.append(f"Final error: {error_msg}")
+        logger.error(f"Google auth error: {error_msg}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Authentication failed: {type(e).__name__}: {str(e)}"
+            detail={"error": error_msg, "debug": error_details}
         )
