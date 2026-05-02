@@ -80,7 +80,7 @@ class LazadaScraperAPI(BaseScraper):
                 service = Service(ChromeDriverManager().install())
             
             self.driver = webdriver.Chrome(service=service, options=chrome_options)
-            self.driver.set_page_load_timeout(45)  # Increased timeout for slow Render
+            self.driver.set_page_load_timeout(90)  # 90 seconds for slow Render free tier
             
             # Execute stealth scripts to avoid bot detection
             self.driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
