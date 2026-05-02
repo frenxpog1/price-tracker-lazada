@@ -63,23 +63,19 @@ class LazadaScraperAPI(BaseScraper):
         }
         chrome_options.add_experimental_option('prefs', prefs)
         
-        # Check if running on Render (environment variables set)
-        chrome_bin = os.getenv('CHROME_BIN')
-        chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
-        
         try:
-            if chrome_bin and chromedriver_path and os.path.exists(chrome_bin):
-                # Running on Render - use custom Chrome installation
-                self.logger.info(f"Using Render Chrome: {chrome_bin}")
-                chrome_options.binary_location = chrome_bin
-                service = Service(executable_path=chromedriver_path)
+            # Check if running in Docker (Chrome installed via apt)
+            if os.path.exists('/usr/bin/google-chrome'):
+                self.logger.info("Using Docker Chrome installation")
+                chrome_options.binary_location = '/usr/bin/google-chrome'
+                service = Service('/usr/bin/chromedriver') if os.path.exists('/usr/bin/chromedriver') else Service()
             else:
                 # Running locally - use webdriver-manager
                 self.logger.info("Using webdriver-manager for Chrome")
                 service = Service(ChromeDriverManager().install())
             
             self.driver = webdriver.Chrome(service=service, options=chrome_options)
-            self.driver.set_page_load_timeout(15)  # Timeout for API
+            self.driver.set_page_load_timeout(30)  # Increased timeout for API
             self.logger.info("✅ Chrome driver initialized successfully")
             
         except Exception as e:
@@ -136,7 +132,7 @@ class LazadaScraperAPI(BaseScraper):
             
             # Wait for products to load
             try:
-                WebDriverWait(self.driver, 5).until(
+                WebDriverWait(self.driver, 10).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR, '[data-tracking="product-card"]'))
                 )
             except TimeoutException:
@@ -144,9 +140,9 @@ class LazadaScraperAPI(BaseScraper):
             
             # Quick scroll to trigger any lazy loading
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight * 0.5);")
-            time.sleep(1)
+            time.sleep(2)
             self.driver.execute_script("window.scrollTo(0, 0);")
-            
+            time.sleep(1)            
             # Extract total count
             total_count = self._extract_total_count()
             
