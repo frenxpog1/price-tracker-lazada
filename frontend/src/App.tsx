@@ -9,7 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-neutral-50">
+      <div className="min-h-screen">
         <Toaster position="top-right" />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
