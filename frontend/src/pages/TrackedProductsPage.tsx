@@ -23,7 +23,8 @@ import {
   updateThreshold, 
   deleteTrackedProduct,
   getPriceHistory,
-  PriceHistoryEntry
+  PriceHistoryEntry,
+  startAutoPriceRandomization
 } from '../services/trackingService'
 
 export default function TrackedProductsPage() {
@@ -32,6 +33,10 @@ export default function TrackedProductsPage() {
   const [isLoadingTracked, setIsLoadingTracked] = useState(true)
   const [updatingThresholdId, setUpdatingThresholdId] = useState<string | null>(null)
   const [deletingProductId, setDeletingProductId] = useState<string | null>(null)
+  
+  // Auto-randomization state
+  const [nextUpdateTime, setNextUpdateTime] = useState<Date | null>(null)
+  const [timeUntilUpdate, setTimeUntilUpdate] = useState<string>('')
   
   // Filter and sort state
   const [filterPlatform, setFilterPlatform] = useState<string>('all')
@@ -50,6 +55,83 @@ export default function TrackedProductsPage() {
   useEffect(() => {
     loadTrackedProducts()
   }, [])
+
+  // Start auto price randomization (only once on mount)
+  useEffect(() => {
+    console.log('Setting up auto price randomization...');
+    
+    // Set next update time (1 hour from now)
+    const nextUpdate = new Date(Date.now() + 3600000); // 1 hour
+    setNextUpdateTime(nextUpdate);
+    
+    const cleanup = startAutoPriceRandomization(
+      () => trackedProducts, // Pass function to get current products
+      (productId, newPrice, thresholdTriggered) => {
+        console.log('Price change callback:', { productId, newPrice, thresholdTriggered });
+        
+        // Update the product price in the list and show notification
+        setTrackedProducts(prev => {
+          const updatedProducts = prev.map(p => 
+            p.id === productId ? { ...p, current_price: newPrice } : p
+          );
+          
+          // Show notification if threshold was triggered
+          if (thresholdTriggered) {
+            const product = updatedProducts.find(p => p.id === productId);
+            console.log('Threshold triggered! Product:', product);
+            if (product) {
+              showSuccess(
+                '🎉 Price Alert!',
+                `${product.product_name} dropped below your target price!`
+              );
+            }
+          }
+          
+          return updatedProducts;
+        });
+        
+        // Update next update time
+        const nextUpdate = new Date(Date.now() + 3600000);
+        setNextUpdateTime(nextUpdate);
+      }
+    );
+    
+    // Cleanup on unmount
+    return cleanup;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty array - only run once on mount
+  
+  // Update countdown timer
+  useEffect(() => {
+    if (!nextUpdateTime) return;
+    
+    const updateCountdown = () => {
+      const now = Date.now();
+      const diff = nextUpdateTime.getTime() - now;
+      
+      if (diff <= 0) {
+        setTimeUntilUpdate('Updating...');
+        return;
+      }
+      
+      const hours = Math.floor(diff / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      
+      if (hours > 0) {
+        setTimeUntilUpdate(`${hours}h ${minutes}m`);
+      } else if (minutes > 0) {
+        setTimeUntilUpdate(`${minutes}m ${seconds}s`);
+      } else {
+        setTimeUntilUpdate(`${seconds}s`);
+      }
+    };
+    
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    
+    return () => clearInterval(interval);
+  }, [nextUpdateTime]);
 
   /**
    * Load tracked products from API
@@ -127,10 +209,8 @@ export default function TrackedProductsPage() {
       prev.map(p => p.id === productId ? { ...p, current_price: newPrice } : p)
     );
     
-    // Reload the product list to get fresh data
-    setTimeout(() => {
-      loadTrackedProducts();
-    }, 1000);
+    // Note: We don't reload from API since this is mock data for testing
+    // The price change is stored in localStorage and will persist
   }, []);
 
   /**
@@ -224,9 +304,27 @@ export default function TrackedProductsPage() {
       <div className="border-b border-white/10 backdrop-blur-xl bg-black/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-white">Tracked Products</h1>
-              <p className="text-white/50 mt-1">Manage your price alerts and monitoring</p>
+            <div className="flex items-center gap-4">
+              {/* Back Button */}
+              <a
+                href="/dashboard"
+                className="w-9 h-9 rounded-lg hover:bg-white/10 flex items-center justify-center transition-colors group"
+                title="Back to Dashboard"
+              >
+                <svg className="w-5 h-5 text-white/60 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </a>
+              
+              <div>
+                <h1 className="text-3xl font-bold text-white">Tracked Products</h1>
+                <p className="text-white/50 mt-1">Manage your price alerts and monitoring</p>
+                {timeUntilUpdate && (
+                  <p className="text-sm text-purple-400 mt-1">
+                    ⏱️ Next auto price update in: {timeUntilUpdate}
+                  </p>
+                )}
+              </div>
             </div>
             
             <button

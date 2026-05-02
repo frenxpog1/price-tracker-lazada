@@ -1,268 +1,132 @@
-# E-commerce Price Tracker
+# PriceTracker
 
-A full-stack web application for tracking product prices across multiple e-commerce platforms (Lazada, Shopee, TikTok Shop) in the Philippines.
+A modern e-commerce price tracking application that monitors product prices across multiple platforms (Lazada, Shopee, TikTok Shop) and alerts you when prices drop below your target.
 
-## 🚀 Live Demo
+## Features
 
-- **Frontend**: https://price-tracker-lazada.vercel.app
-- **Backend API**: https://price-tracker-lazada-uuyz.vercel.app
-- **API Docs**: https://price-tracker-lazada-uuyz.vercel.app/docs
+- 🔍 **Multi-Platform Search** - Search products across Lazada, Shopee, and TikTok Shop
+- 📊 **Price History** - Track price changes over time with interactive charts
+- 🎯 **Price Alerts** - Set target prices and get notified when products drop below threshold
+- 🔄 **Auto Price Updates** - Automatic hourly price checks with small variations
+- 📱 **Modern UI** - Clean 2026 design inspired by Apple/Stripe/Linear
+- 🔔 **Notifications** - Real-time alerts when your tracked products hit target prices
+- 💾 **Persistent Data** - Price history and changes stored locally
 
-## ✨ Features
+## Tech Stack
 
-- 🔍 **Multi-Platform Search**: Search products across Lazada, Shopee, and TikTok Shop
-- 📊 **Price Tracking**: Track product prices and get notified when prices drop
-- 📈 **Price History**: View historical price data with interactive charts
-- 🔐 **Google OAuth**: Secure authentication with Google Sign-In
-- 📱 **Responsive Design**: Works on desktop, tablet, and mobile
-- ⚡ **Real-Time Data**: Fresh product data scraped in real-time
-
-## 🏗️ Architecture
-
-```
-User → Frontend (Vercel) → Backend API (Vercel) → Scraper Service (Render) → E-commerce Sites
-                                ↓
-                          Database (Supabase)
-```
-
-### Tech Stack
-
-**Frontend:**
-- React 18 + TypeScript
+### Frontend
+- React + TypeScript
 - Vite
 - TailwindCSS
-- Recharts (for price history charts)
-- Google OAuth
+- React Router
+- Recharts (for price history graphs)
 
-**Backend:**
-- FastAPI (Python)
-- SQLAlchemy + Alembic
-- PostgreSQL (Supabase)
-- JWT Authentication
-- Pydantic for validation
+### Backend
+- Python + FastAPI
+- PostgreSQL
+- SQLAlchemy
+- Alembic (migrations)
+- Playwright/Selenium (web scraping)
 
-**Scraper Service:**
-- FastAPI
-- Selenium + Chrome
-- BeautifulSoup4
-
-## 📋 Deployment Status
-
-| Component | Platform | Status | URL |
-|-----------|----------|--------|-----|
-| Frontend | Vercel | ✅ Live | https://price-tracker-lazada.vercel.app |
-| Backend | Vercel | ✅ Live | https://price-tracker-lazada-uuyz.vercel.app |
-| Scraper | Render | ⚠️ Deploy needed | - |
-| Database | Supabase | ✅ Live | - |
-
-## 🚀 Quick Deployment
-
-**Need to deploy? Follow these guides in order:**
-
-1. **[QUICK_START.md](QUICK_START.md)** - 4-step quick deployment (5 minutes)
-2. **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - Complete step-by-step guide (20 minutes)
-3. **[DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md)** - Interactive checklist with checkboxes
-4. **[VISUAL_GUIDE.md](VISUAL_GUIDE.md)** - Visual guide with diagrams
-
-**Additional Documentation:**
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture and data flow
-- **[CHANGES_SUMMARY.md](CHANGES_SUMMARY.md)** - Recent changes for Vercel deployment
-- **[VERCEL_ENV_VARIABLES.md](VERCEL_ENV_VARIABLES.md)** - Environment variables setup
-
-## 🎯 Current Status
-
-### ✅ Completed
-- [x] Frontend UI (React + TypeScript)
-- [x] Backend API (FastAPI)
-- [x] Database schema (PostgreSQL)
-- [x] Google OAuth authentication
-- [x] Product search functionality
-- [x] Price tracking system
-- [x] Price history charts
-- [x] Lazada scraper (Selenium)
-- [x] Deployment configuration for Vercel
-- [x] Separate scraper service for Render
-
-### 🚧 In Progress
-- [ ] Deploy scraper service to Render
-- [ ] Background price checking (Celery)
-- [ ] Email notifications
-- [ ] Shopee scraper
-- [ ] TikTok Shop scraper
-
-## 🛠️ Local Development
+## Quick Start
 
 ### Prerequisites
-- Python 3.11+
 - Node.js 18+
+- Python 3.9+
 - PostgreSQL
-- Chrome/Chromium (for scraping)
 
-### Setup
+### Installation
 
-1. **Clone the repository**
+1. Clone the repository
 ```bash
-git clone <your-repo-url>
-cd price-tracker
+git clone https://github.com/Frenxpog1/pricetracker.git
+cd pricetracker
 ```
 
-2. **Backend Setup**
+2. Setup Backend
 ```bash
 cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
-
-# Copy and configure .env
 cp .env.example .env
-# Edit .env with your database URL, Google OAuth credentials, etc.
-
-# Run migrations
+# Edit .env with your database credentials
 alembic upgrade head
-
-# Start the server
-uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 ```
 
-3. **Frontend Setup**
+3. Setup Frontend
 ```bash
 cd frontend
 npm install
-
-# Copy and configure .env
 cp .env.example .env
-# Edit .env with your backend API URL and Google Client ID
-
-# Start the dev server
+# Edit .env with your backend URL
 npm run dev
 ```
 
-4. **Scraper Service Setup** (Optional for local development)
-```bash
-cd lazada_api_production
-pip install -r requirements.txt
+4. Open http://localhost:3000
 
-# Start the scraper service
-uvicorn main:app --reload --port 8001
+## Environment Variables
+
+### Backend (.env)
 ```
-
-### Environment Variables
-
-**Backend (.env):**
-```env
-DATABASE_URL=postgresql://user:password@localhost:5432/price_tracker
+DATABASE_URL=postgresql://user:password@localhost/pricetracker
 SECRET_KEY=your-secret-key
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
-LAZADA_API_URL=http://localhost:8001  # For local development
 ```
 
-**Frontend (.env):**
-```env
+### Frontend (.env)
+```
 VITE_API_URL=http://localhost:8000
-VITE_GOOGLE_CLIENT_ID=your-google-client-id
 ```
 
-## 📚 API Documentation
+## Deployment
 
-Once the backend is running, visit:
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-
-### Key Endpoints
-
-```
-POST   /api/auth/google/login    - Google OAuth login
-GET    /api/auth/me              - Get current user
-GET    /api/products/search      - Search products
-POST   /api/tracking/track       - Track a product
-GET    /api/tracking/products    - Get tracked products
-DELETE /api/tracking/{id}        - Untrack a product
-GET    /health                   - Health check
-```
-
-## 🧪 Testing
-
-### Backend Tests
-```bash
-cd backend
-pytest
-```
-
-### Frontend Tests
+### Frontend (Vercel)
 ```bash
 cd frontend
-npm test
+vercel --prod
 ```
 
-## 📦 Project Structure
+### Backend (Render/Railway)
+- Connect your GitHub repository
+- Set environment variables
+- Deploy from main branch
+
+## Project Structure
 
 ```
-.
-├── backend/                    # FastAPI backend
-│   ├── alembic/               # Database migrations
-│   ├── app/
-│   │   ├── api/               # API endpoints
-│   │   ├── core/              # Core utilities
-│   │   ├── models/            # SQLAlchemy models
-│   │   ├── repositories/      # Data access layer
-│   │   ├── schemas/           # Pydantic schemas
-│   │   ├── scrapers/          # Web scrapers
-│   │   └── services/          # Business logic
-│   └── tests/                 # Backend tests
-│
-├── frontend/                   # React frontend
+pricetracker/
+├── frontend/           # React frontend
 │   ├── src/
-│   │   ├── components/        # React components
-│   │   ├── contexts/          # React contexts
-│   │   ├── pages/             # Page components
-│   │   ├── services/          # API services
-│   │   └── types/             # TypeScript types
-│   └── public/                # Static assets
-│
-├── lazada_api_production/     # Scraper service (Render)
-│   ├── scrapers/              # Scraper implementations
-│   └── main.py                # FastAPI app
-│
-└── docs/                      # Documentation
-    ├── QUICK_START.md
-    ├── DEPLOYMENT_GUIDE.md
-    ├── DEPLOYMENT_CHECKLIST.md
-    ├── ARCHITECTURE.md
-    └── ...
+│   │   ├── components/ # Reusable UI components
+│   │   ├── pages/      # Page components
+│   │   ├── services/   # API services
+│   │   └── types/      # TypeScript types
+│   └── package.json
+├── backend/            # FastAPI backend
+│   ├── app/
+│   │   ├── api/        # API routes
+│   │   ├── models/     # Database models
+│   │   ├── scrapers/   # Web scrapers
+│   │   └── services/   # Business logic
+│   └── requirements.txt
+└── README.md
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## License
 
-## 📝 License
+MIT License - feel free to use this project for personal or commercial purposes.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Author
 
-## 🙏 Acknowledgments
-
-- [FastAPI](https://fastapi.tiangolo.com/) - Modern Python web framework
-- [React](https://react.dev/) - JavaScript library for building UIs
-- [Vercel](https://vercel.com/) - Deployment platform
-- [Render](https://render.com/) - Cloud platform for scraper service
-- [Supabase](https://supabase.com/) - PostgreSQL database hosting
-
-## 📞 Support
-
-For deployment help, see:
-- [QUICK_START.md](QUICK_START.md) - Quick deployment guide
-- [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) - Detailed deployment instructions
-- [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) - Step-by-step checklist
-
-For issues and questions, please open an issue on GitHub.
+**Frenxpog1**
+- GitHub: [@Frenxpog1](https://github.com/Frenxpog1)
+- Email: frenzterp@gmail.com
 
 ---
 
-**Made with ❤️ for price-conscious shoppers in the Philippines**
+Built with ❤️ using React, FastAPI, and modern web technologies.
