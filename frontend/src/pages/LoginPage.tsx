@@ -77,8 +77,11 @@ export default function LoginPage() {
     try {
       setError('');
       
+      // Get API URL from environment variable
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
       // Send Google token to backend
-      const response = await axios.post('http://localhost:8000/api/auth/google', {
+      const response = await axios.post(`${API_URL}/api/auth/google`, {
         token: credentialResponse.credential
       });
       
