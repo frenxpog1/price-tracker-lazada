@@ -50,13 +50,16 @@ export async function scrapeLazada(
     
     const searchUrl = `https://www.lazada.com.ph/catalog/?${params.toString()}`;
     
-    // Fetch the page HTML
-    const response = await fetch(searchUrl, {
+    // Use proxy endpoint to avoid CORS issues
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    const proxyUrl = `${API_URL}/api/proxy/lazada?${params.toString()}`;
+    
+    // Fetch the page HTML via proxy
+    const response = await fetch(proxyUrl, {
       method: 'GET',
       headers: {
-        'User-Agent': navigator.userAgent,
+        'Accept': 'text/html',
       },
-      mode: 'cors',
     });
     
     if (!response.ok) {

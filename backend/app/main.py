@@ -269,9 +269,10 @@ async def shutdown_event():
 
 
 # Include API routers
-from app.api import auth, products, tracking
+from app.api import auth, products, tracking, proxy
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(products.router, prefix="/api/products", tags=["Products"])
 app.include_router(tracking.router, prefix="/api/tracking", tags=["Tracking"])
+app.include_router(proxy.router, prefix="/api/proxy", tags=["Proxy"])
 # from app.api import users
 # app.include_router(users.router, prefix="/api/users", tags=["Users"])
