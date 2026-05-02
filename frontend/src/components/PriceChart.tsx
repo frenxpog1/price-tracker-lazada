@@ -107,17 +107,17 @@ function CustomTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-white p-3 border border-neutral-200 rounded-lg shadow-lg">
-        <p className="text-sm font-semibold text-neutral-900 mb-1">
+      <div className="modern-card p-3">
+        <p className="text-sm font-semibold text-white mb-1">
           {formatDate(label)}
         </p>
-        <p className="text-sm text-neutral-600 mb-1">
-          Price: <span className="font-semibold text-neutral-900">
+        <p className="text-sm text-white/60 mb-1">
+          Price: <span className="font-semibold text-white">
             {formatPrice(data.price, data.currency)}
           </span>
         </p>
         {!data.is_available && (
-          <p className="text-xs text-warning-600">
+          <p className="text-xs text-yellow-400">
             ⚠️ Product unavailable
           </p>
         )}
@@ -138,9 +138,9 @@ export default function PriceChart({
   // Loading state
   if (isLoading) {
     return (
-      <div className="bg-white rounded-lg border border-neutral-200 p-6">
+      <div className="modern-card p-6">
         <div className="flex items-center justify-center" style={{ height }}>
-          <div className="flex items-center space-x-2 text-neutral-500">
+          <div className="flex items-center space-x-2 text-white/50">
             <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
@@ -155,13 +155,13 @@ export default function PriceChart({
   // Empty state
   if (!priceHistory || priceHistory.length === 0) {
     return (
-      <div className="bg-white rounded-lg border border-neutral-200 p-6">
+      <div className="modern-card p-6">
         <div className="flex flex-col items-center justify-center text-center" style={{ height }}>
-          <svg className="w-12 h-12 text-neutral-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-12 h-12 text-white/20 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
-          <h3 className="text-lg font-semibold text-neutral-900 mb-1">No Price History</h3>
-          <p className="text-neutral-600 max-w-sm">
+          <h3 className="text-lg font-semibold text-white mb-1">No Price History</h3>
+          <p className="text-white/50 max-w-sm">
             Price history will appear here once we start monitoring this product.
           </p>
         </div>
@@ -188,18 +188,18 @@ export default function PriceChart({
   const yAxisMax = maxPrice + (priceRange * 0.1);
 
   return (
-    <div className="bg-white rounded-lg border border-neutral-200 p-6">
+    <div className="modern-card p-6">
       {/* Chart Header */}
       <div className="mb-4">
-        <h3 className="text-lg font-semibold text-neutral-900 mb-1">
+        <h3 className="text-lg font-semibold text-white mb-1">
           Price History
           {productName && (
-            <span className="text-sm font-normal text-neutral-600 ml-2">
+            <span className="text-sm font-normal text-white/60 ml-2">
               for {productName}
             </span>
           )}
         </h3>
-        <p className="text-sm text-neutral-600">
+        <p className="text-sm text-white/60">
           {priceHistory.length} price {priceHistory.length === 1 ? 'record' : 'records'} 
           {priceHistory.length > 0 && (
             <span className="ml-2">
@@ -220,20 +220,20 @@ export default function PriceChart({
             bottom: 20,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
           
           <XAxis 
             dataKey="formattedDate"
-            tick={{ fontSize: 12, fill: '#64748b' }}
-            tickLine={{ stroke: '#cbd5e1' }}
-            axisLine={{ stroke: '#cbd5e1' }}
+            tick={{ fontSize: 12, fill: 'rgba(255,255,255,0.5)' }}
+            tickLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+            axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
           />
           
           <YAxis 
             domain={[yAxisMin, yAxisMax]}
-            tick={{ fontSize: 12, fill: '#64748b' }}
-            tickLine={{ stroke: '#cbd5e1' }}
-            axisLine={{ stroke: '#cbd5e1' }}
+            tick={{ fontSize: 12, fill: 'rgba(255,255,255,0.5)' }}
+            tickLine={{ stroke: 'rgba(255,255,255,0.1)' }}
+            axisLine={{ stroke: 'rgba(255,255,255,0.1)' }}
             tickFormatter={(value) => formatPrice(value, currency)}
           />
           
@@ -257,19 +257,19 @@ export default function PriceChart({
           <Line
             type="monotone"
             dataKey="price"
-            stroke="#3b82f6"
+            stroke="#60a5fa"
             strokeWidth={2}
             dot={{ 
-              fill: '#3b82f6', 
+              fill: '#60a5fa', 
               strokeWidth: 2, 
               r: 4,
-              stroke: '#ffffff'
+              stroke: '#0A0A0A'
             }}
             activeDot={{ 
               r: 6, 
-              stroke: '#3b82f6', 
+              stroke: '#60a5fa', 
               strokeWidth: 2,
-              fill: '#ffffff'
+              fill: '#0A0A0A'
             }}
             connectNulls={false}
           />
@@ -278,13 +278,13 @@ export default function PriceChart({
             content={() => (
               <div className="flex items-center justify-center space-x-6 mt-4 text-sm">
                 <div className="flex items-center space-x-2">
-                  <div className="w-4 h-0.5 bg-blue-500"></div>
-                  <span className="text-neutral-600">Price</span>
+                  <div className="w-4 h-0.5 bg-blue-400"></div>
+                  <span className="text-white/60">Price</span>
                 </div>
                 {thresholdPrice && (
                   <div className="flex items-center space-x-2">
                     <div className="w-4 h-0.5 bg-red-500 border-dashed"></div>
-                    <span className="text-neutral-600">Target Price</span>
+                    <span className="text-white/60">Target Price</span>
                   </div>
                 )}
               </div>
@@ -295,23 +295,23 @@ export default function PriceChart({
 
       {/* Chart Footer with Statistics */}
       {priceHistory.length > 1 && (
-        <div className="mt-4 pt-4 border-t border-neutral-200">
+        <div className="mt-4 pt-4 border-t border-white/10">
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
-              <p className="text-sm text-neutral-600">Lowest Price</p>
-              <p className="text-lg font-semibold text-success-600">
+              <p className="text-sm text-white/50">Lowest Price</p>
+              <p className="text-lg font-semibold text-green-400">
                 {formatPrice(minPrice, currency)}
               </p>
             </div>
             <div>
-              <p className="text-sm text-neutral-600">Highest Price</p>
-              <p className="text-lg font-semibold text-error-600">
+              <p className="text-sm text-white/50">Highest Price</p>
+              <p className="text-lg font-semibold text-red-400">
                 {formatPrice(maxPrice, currency)}
               </p>
             </div>
             <div>
-              <p className="text-sm text-neutral-600">Price Range</p>
-              <p className="text-lg font-semibold text-neutral-900">
+              <p className="text-sm text-white/50">Price Range</p>
+              <p className="text-lg font-semibold text-white">
                 {formatPrice(priceRange, currency)}
               </p>
             </div>
