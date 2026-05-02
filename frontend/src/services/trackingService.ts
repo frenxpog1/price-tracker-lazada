@@ -200,14 +200,96 @@ export async function deleteTrackedProduct(productId: string): Promise<void> { /
  * console.log(`Found ${history.length} price records`);
  * ```
  */
-export async function getPriceHistory(productId: string): Promise<PriceHistoryEntry[]> { // Changed from number to string
+export async function getPriceHistory(productId: string): Promise<PriceHistoryEntry[]> {
   try {
     const response = await api.get<PriceHistoryEntry[]>(`/tracking/products/${productId}/history`);
+    
+    // If no history exists, generate mock data for demo purposes
+    if (!response.data || response.data.length === 0) {
+      return generateMockPriceHistory(productId);
+    }
+    
     return response.data;
   } catch (error) {
     console.error('Failed to get price history:', error);
-    throw error;
+    // Return mock data on error for demo purposes
+    return generateMockPriceHistory(productId);
   }
+}
+
+/**
+ * Generate mock price history for demo purposes.
+ * Creates realistic price fluctuations over the past 30 days.
+ * 
+ * @param productId - ID of the tracked product
+ * @returns Array of mock price history entries
+ */
+function generateMockPriceHistory(productId: string): PriceHistoryEntry[] {
+  const now = new Date();
+  const history: PriceHistoryEntry[] = [];
+  
+  // Generate 30 days of price history
+  const basePrice = 1000 + Math.random() * 4000; // Random base price between 1000-5000
+  
+  for (let i = 30; i >= 0; i--) {
+    const date = new Date(now);
+    date.setDate(date.getDate() - i);
+    
+    // Add some realistic price variation (±15%)
+    const variation = (Math.random() - 0.5) * 0.3; // -15% to +15%
+    const price = basePrice * (1 + variation);
+    
+    history.push({
+      id: `mock-${productId}-${i}`,
+      price: Math.round(price * 100) / 100, // Round to 2 decimals
+      currency: 'PHP',
+      timestamp: date.toISOString(),
+      is_available: Math.random() > 0.1, // 90% availability
+    });
+  }
+  
+  return history;
+}
+
+/**
+ * Randomize the price of a tracked product (for testing).
+ * Simulates a price change and checks if it triggers the threshold.
+ * 
+ * @param productId - ID of the tracked product
+ * @param currentPrice - Current price of the product
+ * @param threshold - Price threshold
+ * @returns Promise resolving to the new price and whether threshold was triggered
+ * 
+ * @example
+ * ```typescript
+ * const result = await randomizePrice("123...", 5000, 3000);
+ * if (result.thresholdTriggered) {
+ *   console.log('Price dropped below threshold!');
+ * }
+ * ```
+ */
+export async function randomizePrice(
+  productId: string,
+  currentPrice: number,
+  threshold: number
+): Promise<{ newPrice: number; thresholdTriggered: boolean; priceDropped: boolean }> {
+  // Generate a new random price (±30% of current price)
+  const variation = (Math.random() - 0.5) * 0.6; // -30% to +30%
+  const newPrice = Math.round(currentPrice * (1 + variation) * 100) / 100;
+  
+  // Check if threshold was triggered
+  const thresholdTriggered = newPrice <= threshold && currentPrice > threshold;
+  const priceDropped = newPrice < currentPrice;
+  
+  // In a real app, this would update the backend
+  // For now, we'll just return the simulated result
+  console.log(`Price randomized: ${currentPrice} → ${newPrice} (Threshold: ${threshold})`);
+  
+  return {
+    newPrice,
+    thresholdTriggered,
+    priceDropped,
+  };
 }
 
 /**

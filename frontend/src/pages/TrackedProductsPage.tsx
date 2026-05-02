@@ -119,6 +119,21 @@ export default function TrackedProductsPage() {
   }, [showSuccess, showError])
 
   /**
+   * Handle price randomization
+   */
+  const handlePriceRandomized = useCallback((productId: string, newPrice: number) => {
+    // Update the product in the list with the new price
+    setTrackedProducts(prev =>
+      prev.map(p => p.id === productId ? { ...p, current_price: newPrice } : p)
+    );
+    
+    // Reload the product list to get fresh data
+    setTimeout(() => {
+      loadTrackedProducts();
+    }, 1000);
+  }, []);
+
+  /**
    * Handle view price history
    */
   const handleViewHistory = useCallback(async (productId: string) => {
@@ -373,6 +388,7 @@ export default function TrackedProductsPage() {
                 onUpdateThreshold={handleUpdateThreshold}
                 onDelete={handleDeleteProduct}
                 onViewHistory={handleViewHistory}
+                onPriceRandomized={handlePriceRandomized}
                 isUpdatingThreshold={updatingThresholdId === product.id}
                 isDeleting={deletingProductId === product.id}
               />
