@@ -3,6 +3,7 @@ import SearchBar from '../components/SearchBar'
 import ProductCard from '../components/ProductCard'
 import TrackPriceModal from '../components/TrackPriceModal'
 import Navigation from '../components/Navigation'
+import Statistics from '../components/Statistics'
 import { ToastContainer, useToast } from '../components/Toast'
 import { SearchResults, ProductResult } from '../types/product'
 import { trackProduct } from '../services/trackingService'
@@ -130,17 +131,20 @@ export default function DashboardPage() {
   }, [trackingProductId])
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-transparent">
       {/* Navigation */}
       <Navigation />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-neutral-900 mb-2">Search Products</h1>
-          <p className="text-neutral-600">Find products and set up price alerts across multiple platforms</p>
+        <div className="mb-8 text-center animate-fade-in">
+          <h1 className="text-5xl font-bold gradient-text mb-4">Discover Best Deals</h1>
+          <p className="text-dark-600 text-lg">Track prices and save money across multiple platforms</p>
         </div>
+
+        {/* Statistics Dashboard */}
+        <Statistics />
 
         {/* Search Bar - Requirements: 1.1, 1.2, 1.3 */}
         <SearchBar
