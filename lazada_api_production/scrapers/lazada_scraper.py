@@ -34,12 +34,14 @@ class LazadaScraperAPI(BaseScraper):
     
     async def __aenter__(self):
         """Initialize Selenium browser with performance optimizations."""
+        import os
+        
         chrome_options = Options()
-        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--headless=new')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--disable-blink-features=AutomationControlled')
-        chrome_options.add_argument('user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+        chrome_options.add_argument('user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36')
         
         # Performance optimizations
         chrome_options.add_argument('--disable-gpu')
@@ -51,6 +53,8 @@ class LazadaScraperAPI(BaseScraper):
         chrome_options.add_argument('--no-default-browser-check')
         chrome_options.add_argument('--disable-infobars')
         chrome_options.add_argument('--disable-notifications')
+        chrome_options.add_argument('--disable-setuid-sandbox')
+        chrome_options.add_argument('--single-process')
         
         # Disable images for faster loading
         prefs = {
@@ -59,13 +63,28 @@ class LazadaScraperAPI(BaseScraper):
         }
         chrome_options.add_experimental_option('prefs', prefs)
         
+        # Check if running on Render (environment variables set)
+        chrome_bin = os.getenv('CHROME_BIN')
+        chromedriver_path = os.getenv('CHROMEDRIVER_PATH')
+        
         try:
-            service = Service(ChromeDriverManager().install())
+            if chrome_bin and chromedriver_path and os.path.exists(chrome_bin):
+                # Running on Render - use custom Chrome installation
+                self.logger.info(f"Using Render Chrome: {chrome_bin}")
+                chrome_options.binary_location = chrome_bin
+                service = Service(executable_path=chromedriver_path)
+            else:
+                # Running locally - use webdriver-manager
+                self.logger.info("Using webdriver-manager for Chrome")
+                service = Service(ChromeDriverManager().install())
+            
             self.driver = webdriver.Chrome(service=service, options=chrome_options)
-            self.driver.set_page_load_timeout(10)  # Fast timeout for API
+            self.driver.set_page_load_timeout(15)  # Timeout for API
+            self.logger.info("✅ Chrome driver initialized successfully")
+            
         except Exception as e:
             self.logger.error(f"Failed to initialize Chrome driver: {e}")
-            raise ScraperError("Browser initialization failed", "lazada", 503)
+            raise ScraperError(f"Browser initialization failed: {str(e)}", "lazada", 503)
         
         return self
     

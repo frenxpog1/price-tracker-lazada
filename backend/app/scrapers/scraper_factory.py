@@ -25,13 +25,23 @@ class ScraperFactory:
     def _load_real_scrapers(cls):
         """Lazy load real scrapers to avoid import errors if dependencies missing."""
         if not cls._real_scrapers:
-            # Load the Selenium Lazada scraper (browser automation)
-            try:
-                from app.scrapers.lazada_selenium_scraper import LazadaSeleniumScraper
-                cls._real_scrapers["lazada"] = LazadaSeleniumScraper
-                logger.info("✅ Loaded LazadaSeleniumScraper (Selenium browser automation)")
-            except ImportError as e:
-                logger.error(f"❌ Could not load LazadaSeleniumScraper: {e}")
+            # Load Lazada scraper based on configuration
+            # If LAZADA_API_URL is set, use Render API scraper (for Vercel deployment)
+            # Otherwise, use local Selenium scraper (for local development)
+            if settings.LAZADA_API_URL:
+                try:
+                    from app.scrapers.lazada_render_scraper import LazadaRenderScraper
+                    cls._real_scrapers["lazada"] = LazadaRenderScraper
+                    logger.info(f"✅ Loaded LazadaRenderScraper (Render API: {settings.LAZADA_API_URL})")
+                except ImportError as e:
+                    logger.error(f"❌ Could not load LazadaRenderScraper: {e}")
+            else:
+                try:
+                    from app.scrapers.lazada_selenium_scraper import LazadaSeleniumScraper
+                    cls._real_scrapers["lazada"] = LazadaSeleniumScraper
+                    logger.info("✅ Loaded LazadaSeleniumScraper (local Selenium)")
+                except ImportError as e:
+                    logger.error(f"❌ Could not load LazadaSeleniumScraper: {e}")
             
             # Shopee and TikTok Shop scrapers not yet implemented
             logger.info("⚠️  Shopee scraper: Not implemented yet")

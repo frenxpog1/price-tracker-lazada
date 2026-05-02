@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Import scraper
-from scrapers.lazada_scraper import LazadaScraperAPI
+from scrapers.lazada_scraper_playwright import LazadaScraperPlaywright as LazadaScraperAPI
 from scrapers.base_scraper import ProductResult, ScraperError
 
 app = FastAPI(
