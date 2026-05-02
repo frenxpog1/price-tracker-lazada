@@ -5,7 +5,9 @@ services:
     region: singapore
     plan: free
     buildCommand: "pip install -r requirements.txt && playwright install --with-deps chromium"
-    startCommand: "python main.py"
+    startCommand: "./start.sh"
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
+      - key: PLAYWRIGHT_BROWSERS_PATH
+        value: /opt/render/.cache/ms-playwright
