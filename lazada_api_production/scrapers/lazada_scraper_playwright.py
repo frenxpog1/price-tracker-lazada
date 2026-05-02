@@ -54,7 +54,7 @@ class LazadaScraperPlaywright(BaseScraper):
             )
             
             self.page = await context.new_page()
-            self.page.set_default_timeout(15000)  # 15 second timeout
+            self.page.set_default_timeout(30000)  # 30 second timeout for Render
             
             self.logger.info("✅ Playwright browser initialized successfully")
             
@@ -112,11 +112,11 @@ class LazadaScraperPlaywright(BaseScraper):
             self.logger.info(f"Searching Lazada: {query} (page={page}, sort={sort_by})")
             
             # Navigate to search page
-            await self.page.goto(search_url, wait_until='domcontentloaded')
+            await self.page.goto(search_url, wait_until='domcontentloaded', timeout=30000)
             
             # Wait for products to load
             try:
-                await self.page.wait_for_selector('[data-tracking="product-card"]', timeout=5000)
+                await self.page.wait_for_selector('[data-tracking="product-card"]', timeout=10000)
             except Exception:
                 self.logger.warning("Timeout waiting for product cards")
             
