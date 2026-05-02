@@ -249,8 +249,13 @@ async def startup_event():
         }
     )
     
-    # TODO: Initialize database tables (will be done via Alembic migrations)
-    # TODO: Verify external service connections
+    # Initialize database tables if they don't exist
+    try:
+        from app.core.database import Base, engine
+        Base.metadata.create_all(bind=engine)
+        logger.info("Database tables initialized")
+    except Exception as e:
+        logger.error(f"Failed to initialize database: {e}")
 
 
 # Application Shutdown Event
