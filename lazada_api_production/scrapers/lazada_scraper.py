@@ -55,6 +55,11 @@ class LazadaScraperAPI(BaseScraper):
         chrome_options.add_argument('--disable-notifications')
         chrome_options.add_argument('--disable-setuid-sandbox')
         chrome_options.add_argument('--single-process')
+        chrome_options.add_argument('--window-size=1920,1080')
+        
+        # Stealth options to avoid bot detection
+        chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        chrome_options.add_experimental_option('useAutomationExtension', False)
         
         # Disable images for faster loading
         prefs = {
@@ -75,7 +80,17 @@ class LazadaScraperAPI(BaseScraper):
                 service = Service(ChromeDriverManager().install())
             
             self.driver = webdriver.Chrome(service=service, options=chrome_options)
-            self.driver.set_page_load_timeout(30)  # Increased timeout for API
+            self.driver.set_page_load_timeout(45)  # Increased timeout for slow Render
+            
+            # Execute stealth scripts to avoid bot detection
+            self.driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
+                'source': '''
+                    Object.defineProperty(navigator, 'webdriver', {
+                        get: () => undefined
+                    });
+                '''
+            })
+            
             self.logger.info("✅ Chrome driver initialized successfully")
             
         except Exception as e:
