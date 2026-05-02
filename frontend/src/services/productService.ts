@@ -11,8 +11,8 @@
  * - 1.3: Search TikTok Shop products
  */
 
-import api from './api';
-import { ScrapedProduct } from './clientScraper';
+import { SearchResults } from '../types/product';
+import { scrapeLazada, ScrapedProduct } from './clientScraper';
 import { getMockProducts } from './mockData';
 
 /**
@@ -39,7 +39,7 @@ export async function searchProducts(
     if (lazadaResults.results.length > 0) {
       return {
         query: lazadaResults.query,
-        results: lazadaResults.results.map(product => ({
+        results: lazadaResults.results.map((product: ScrapedProduct) => ({
           ...product,
           scraped_at: new Date().toISOString()
         })),
@@ -61,7 +61,7 @@ export async function searchProducts(
     
     return {
       query,
-      results: mockProducts.map(product => ({
+      results: mockProducts.map((product: ScrapedProduct) => ({
         ...product,
         scraped_at: new Date().toISOString()
       })),

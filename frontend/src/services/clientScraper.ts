@@ -48,8 +48,6 @@ export async function scrapeLazada(
       params.append('sortBy', sortMap[sortBy]);
     }
     
-    const searchUrl = `https://www.lazada.com.ph/catalog/?${params.toString()}`;
-    
     // Use proxy endpoint to avoid CORS issues
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
     const proxyUrl = `${API_URL}/api/proxy/lazada?${params.toString()}`;
