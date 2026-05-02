@@ -144,7 +144,12 @@ export default function TrackedProductsPage() {
     setIsLoadingHistory(true)
     
     try {
-      const history = await getPriceHistory(productId)
+      // Pass the current price to generate realistic mock data
+      const currentPrice = typeof product.current_price === 'string' 
+        ? parseFloat(product.current_price) 
+        : product.current_price;
+      
+      const history = await getPriceHistory(productId, currentPrice)
       setPriceHistory(history)
     } catch (error) {
       console.error('Failed to load price history:', error)

@@ -191,29 +191,30 @@ export async function deleteTrackedProduct(productId: string): Promise<void> { /
  * Get price history for a tracked product.
  * 
  * @param productId - ID of the tracked product (UUID string)
+ * @param currentPrice - Current price of the product (for mock data generation)
  * @returns Promise resolving to array of price history entries
  * @throws Error if the API request fails
  * 
  * @example
  * ```typescript
- * const history = await getPriceHistory("123e4567-e89b-12d3-a456-426614174000");
+ * const history = await getPriceHistory("123e4567-e89b-12d3-a456-426614174000", 19990);
  * console.log(`Found ${history.length} price records`);
  * ```
  */
-export async function getPriceHistory(productId: string): Promise<PriceHistoryEntry[]> {
+export async function getPriceHistory(productId: string, currentPrice?: number): Promise<PriceHistoryEntry[]> {
   try {
     const response = await api.get<PriceHistoryEntry[]>(`/tracking/products/${productId}/history`);
     
     // If no history exists, generate mock data for demo purposes
     if (!response.data || response.data.length === 0) {
-      return generateMockPriceHistory(productId);
+      return generateMockPriceHistory(productId, currentPrice);
     }
     
     return response.data;
   } catch (error) {
     console.error('Failed to get price history:', error);
     // Return mock data on error for demo purposes
-    return generateMockPriceHistory(productId);
+    return generateMockPriceHistory(productId, currentPrice);
   }
 }
 
@@ -222,26 +223,28 @@ export async function getPriceHistory(productId: string): Promise<PriceHistoryEn
  * Creates realistic price fluctuations over the past 30 days.
  * 
  * @param productId - ID of the tracked product
+ * @param basePrice - Base price to use for generating history (optional)
  * @returns Array of mock price history entries
  */
-function generateMockPriceHistory(productId: string): PriceHistoryEntry[] {
+function generateMockPriceHistory(productId: string, basePrice?: number): PriceHistoryEntry[] {
   const now = new Date();
   const history: PriceHistoryEntry[] = [];
   
-  // Generate 30 days of price history
-  const basePrice = 1000 + Math.random() * 4000; // Random base price between 1000-5000
+  // Use provided base price or generate a random one
+  const price = basePrice || (1000 + Math.random() * 4000);
   
+  // Generate 30 days of price history
   for (let i = 30; i >= 0; i--) {
     const date = new Date(now);
     date.setDate(date.getDate() - i);
     
-    // Add some realistic price variation (±15%)
-    const variation = (Math.random() - 0.5) * 0.3; // -15% to +15%
-    const price = basePrice * (1 + variation);
+    // Add some realistic price variation (±10%)
+    const variation = (Math.random() - 0.5) * 0.2; // -10% to +10%
+    const historicalPrice = price * (1 + variation);
     
     history.push({
       id: `mock-${productId}-${i}`,
-      price: Math.round(price * 100) / 100, // Round to 2 decimals
+      price: Math.round(historicalPrice * 100) / 100, // Round to 2 decimals
       currency: 'PHP',
       timestamp: date.toISOString(),
       is_available: Math.random() > 0.1, // 90% availability
