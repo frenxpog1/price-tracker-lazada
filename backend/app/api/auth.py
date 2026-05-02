@@ -112,11 +112,13 @@ async def google_auth(
     Returns user information and JWT token.
     """
     try:
-        # Verify the Google token
-        # Note: In production, you should specify your Google Client ID
+        from app.config import settings
+        
+        # Verify the Google token with our Client ID
         idinfo = id_token.verify_oauth2_token(
             auth_request.token,
-            google_requests.Request()
+            google_requests.Request(),
+            settings.GOOGLE_CLIENT_ID
         )
         
         # Get user email from Google token
@@ -165,8 +167,8 @@ async def google_auth(
             detail="Invalid Google token"
         )
     except Exception as e:
-        logger.error(f"Google auth error: {e}")
+        logger.error(f"Google auth error: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Authentication failed"
+            detail=f"Authentication failed: {str(e)}"
         )
