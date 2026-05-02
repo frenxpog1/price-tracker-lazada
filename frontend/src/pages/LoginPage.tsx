@@ -94,7 +94,16 @@ export default function LoginPage() {
       navigate('/dashboard');
     } catch (err: any) {
       console.error('Google login error:', err);
-      setError('Failed to sign in with Google. Please try again.');
+      console.error('Error response:', err.response?.data);
+      
+      // Show detailed error if available
+      if (err.response?.data?.debug) {
+        setError(`Failed to sign in: ${err.response.data.debug.join(' → ')}`);
+      } else if (err.response?.data?.error) {
+        setError(`Failed to sign in: ${err.response.data.error}`);
+      } else {
+        setError('Failed to sign in with Google. Please try again.');
+      }
     }
   };
 
