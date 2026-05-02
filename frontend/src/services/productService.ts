@@ -3,6 +3,7 @@
  * 
  * This module provides methods for:
  * - Searching products across multiple e-commerce platforms
+ * - Client-side scraping (runs in user's browser, no server needed)
  * 
  * Requirements covered:
  * - 1.1: Search Lazada products
@@ -12,24 +13,17 @@
 
 import api from './api';
 import { SearchResults } from '../types/product';
+import { scrapeLazada } from './clientScraper';
 
 /**
- * Search for products across all supported e-commerce platforms.
+ * Search for products using CLIENT-SIDE scraping.
+ * This runs in the user's browser, avoiding server costs and bot detection.
  * 
- * Makes a GET request to /api/products/search with the search query.
- * Returns results from Lazada, Shopee, and TikTok Shop.
- * 
- * @param query - Search query string (required, min length 1)
- * @param maxResults - Maximum results per platform (1-50, default 10)
- * @returns Promise resolving to SearchResults containing products from all platforms
- * @throws Error if the API request fails
- * 
- * @example
- * ```typescript
- * const results = await searchProducts('laptop');
- * console.log(results.results); // Array of ProductResult
- * console.log(results.platforms_searched); // ['lazada', 'shopee', 'tiktokshop']
- * ```
+ * @param query - Search query string
+ * @param maxResults - Maximum results per platform (default 40)
+ * @param page - Page number (default 1)
+ * @param sortBy - Sort option (default 'best_match')
+ * @returns Promise resolving to SearchResults
  */
 export async function searchProducts(
   query: string,
@@ -38,19 +32,39 @@ export async function searchProducts(
   sortBy: string = 'best_match'
 ): Promise<SearchResults> {
   try {
-    const response = await api.get<SearchResults>('/products/search', {
-      params: {
-        q: query,
-        max_results: maxResults,
-        page: page,
-        sort_by: sortBy,
-      },
-    });
-
-    return response.data;
+    // Use client-side scraping (runs in user's browser)
+    const lazadaResults = await scrapeLazada(query, page, maxResults, sortBy);
+    
+    // Convert to SearchResults format
+    return {
+      query: lazadaResults.query,
+      results: lazadaResults.results.map(product => ({
+        ...product,
+        scraped_at: new Date().toISOString()
+      })),
+      total_results: lazadaResults.total_results,
+      platforms_searched: ['lazada'],
+      platforms_failed: [],
+      search_time_seconds: lazadaResults.search_time_seconds
+    };
   } catch (error) {
     console.error('Failed to search products:', error);
-    throw error;
+    
+    // Fallback to server-side API if client-side fails
+    try {
+      const response = await api.get<SearchResults>('/products/search', {
+        params: {
+          q: query,
+          max_results: maxResults,
+          page: page,
+          sort_by: sortBy,
+        },
+      });
+      return response.data;
+    } catch (apiError) {
+      console.error('Server-side API also failed:', apiError);
+      throw error;
+    }
   }
 }
 
