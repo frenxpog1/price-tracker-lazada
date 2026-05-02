@@ -38,7 +38,7 @@ class LazadaRenderScraper(BaseScraper):
     
     async def __aenter__(self):
         """Initialize HTTP client."""
-        self.client = httpx.AsyncClient(timeout=60.0)
+        self.client = httpx.AsyncClient(timeout=120.0)  # 120 second timeout for slow Render
         return self
     
     async def __aexit__(self, exc_type, exc_val, exc_tb):
@@ -78,7 +78,8 @@ class LazadaRenderScraper(BaseScraper):
                     "page": page,
                     "per_page": max_results,
                     "sort_by": sort_by
-                }
+                },
+                timeout=120.0  # 120 second timeout for slow Render
             )
             
             # Check response status

@@ -17,7 +17,7 @@ logger = get_logger(__name__)
 class ProductSearchService:
     """Service for searching products across multiple platforms."""
     
-    SEARCH_TIMEOUT = 45  # seconds per platform (Selenium scraping takes 20-30s)
+    SEARCH_TIMEOUT = 120  # seconds per platform (increased for slow Render free tier)
     
     def __init__(self):
         self.supported_platforms = ScraperFactory.get_supported_platforms()

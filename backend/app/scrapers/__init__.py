@@ -8,6 +8,12 @@ from app.scrapers.base_scraper import (
 )
 from app.core.exceptions import ScraperError
 
+# API-based scraper (works in serverless environments)
+try:
+    from app.scrapers.lazada_api_scraper import LazadaAPIScraper
+except ImportError:
+    LazadaAPIScraper = None
+
 # Optional imports for scrapers (may not work in serverless environments)
 try:
     from app.scrapers.lazada_selenium_scraper import LazadaSeleniumScraper
@@ -31,6 +37,7 @@ __all__ = [
     "ProductSearchResult",
     "PriceCheckResult",
     "ScraperError",
+    "LazadaAPIScraper",
     "LazadaSeleniumScraper",
     "ShopeeScraper",
     "TikTokShopScraper",
