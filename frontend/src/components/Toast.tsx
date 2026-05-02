@@ -61,26 +61,26 @@ function Toast({ toast, onDismiss }: ToastProps) {
   const getToastStyles = () => {
     switch (toast.type) {
       case 'success':
-        return 'bg-success-50 border-success-200 text-success-800';
+        return 'bg-green-500/10 border-green-500/20 text-green-300';
       case 'error':
-        return 'bg-error-50 border-error-200 text-error-800';
+        return 'bg-red-500/10 border-red-500/20 text-red-300';
       case 'info':
-        return 'bg-blue-50 border-blue-200 text-blue-800';
+        return 'bg-blue-500/10 border-blue-500/20 text-blue-300';
       default:
-        return 'bg-neutral-50 border-neutral-200 text-neutral-800';
+        return 'bg-white/5 border-white/10 text-white';
     }
   };
 
   const getIconStyles = () => {
     switch (toast.type) {
       case 'success':
-        return 'text-success-500';
+        return 'text-green-400';
       case 'error':
-        return 'text-error-500';
+        return 'text-red-400';
       case 'info':
-        return 'text-blue-500';
+        return 'text-blue-400';
       default:
-        return 'text-neutral-500';
+        return 'text-white/50';
     }
   };
 
@@ -111,7 +111,7 @@ function Toast({ toast, onDismiss }: ToastProps) {
       `}
     >
       <div className={`
-        max-w-sm w-full bg-white shadow-lg rounded-lg border pointer-events-auto
+        max-w-sm w-full backdrop-blur-xl rounded-lg border pointer-events-auto
         ${getToastStyles()}
       `}>
         <div className="p-4">
@@ -134,7 +134,7 @@ function Toast({ toast, onDismiss }: ToastProps) {
             <div className="ml-4 flex-shrink-0 flex">
               <button
                 onClick={handleDismiss}
-                className="inline-flex text-gray-400 hover:text-gray-600 focus:outline-none"
+                className="inline-flex text-white/40 hover:text-white/70 focus:outline-none"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

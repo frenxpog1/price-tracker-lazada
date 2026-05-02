@@ -169,18 +169,18 @@ export default function TrackPriceModal({
 
   return (
     <div 
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4"
       onClick={handleBackdropClick}
     >
       {/* Modal Content */}
-      <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl transform transition-all">
+      <div className="modern-card max-w-md w-full transform transition-all">
         {/* Header */}
-        <div className="p-6 border-b border-neutral-200">
+        <div className="p-6 border-b border-white/10">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
                 <svg 
-                  className="w-5 h-5 text-primary-600" 
+                  className="w-5 h-5 text-white" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -194,15 +194,15 @@ export default function TrackPriceModal({
                 </svg>
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-neutral-900">Track Price</h2>
-                <p className="text-sm text-neutral-600">Set your target price alert</p>
+                <h2 className="text-xl font-semibold text-white">Track Price</h2>
+                <p className="text-sm text-white/60">Set your target price alert</p>
               </div>
             </div>
             
             {!isTracking && (
               <button
                 onClick={onClose}
-                className="text-neutral-400 hover:text-neutral-600 transition-colors"
+                className="text-white/40 hover:text-white/70 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -213,7 +213,7 @@ export default function TrackPriceModal({
         </div>
 
         {/* Product Info */}
-        <div className="p-6 border-b border-neutral-100">
+        <div className="p-6 border-b border-white/10">
           <div className="flex items-start space-x-4">
             {/* Product Image */}
             <div className="flex-shrink-0">
@@ -229,14 +229,14 @@ export default function TrackPriceModal({
             
             {/* Product Details */}
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-neutral-900 line-clamp-2 mb-1">
+              <h3 className="font-semibold text-white line-clamp-2 mb-1">
                 {product.product_name}
               </h3>
               <div className="flex items-center space-x-2">
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-300">
                   {product.platform}
                 </span>
-                <span className="text-sm text-neutral-600">
+                <span className="text-sm text-white/60">
                   Current: {formatPrice(currentPrice, product.currency)}
                 </span>
               </div>
@@ -248,12 +248,12 @@ export default function TrackPriceModal({
         <form onSubmit={handleSubmit} className="p-6">
           {/* Target Price Input */}
           <div className="mb-6">
-            <label htmlFor="threshold" className="block text-sm font-medium text-neutral-700 mb-2">
+            <label htmlFor="threshold" className="block text-sm font-medium text-white/70 mb-2">
               Target Price
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <span className="text-neutral-500 text-lg">
+                <span className="text-white/50 text-lg">
                   {product.currency === 'PHP' ? '₱' : product.currency}
                 </span>
               </div>
@@ -266,10 +266,9 @@ export default function TrackPriceModal({
                 min="0"
                 disabled={isTracking}
                 className={`
-                  block w-full pl-8 pr-3 py-3 text-lg font-semibold border rounded-lg
-                  focus:ring-2 focus:ring-primary-500 focus:border-transparent
-                  disabled:bg-neutral-100 disabled:cursor-not-allowed
-                  ${error ? 'border-error-300 bg-error-50' : 'border-neutral-300'}
+                  modern-input block w-full pl-8 pr-3 py-3 text-lg font-semibold
+                  disabled:opacity-50 disabled:cursor-not-allowed
+                  ${error ? 'border-red-500/50' : ''}
                 `}
                 placeholder="0.00"
               />
@@ -277,7 +276,7 @@ export default function TrackPriceModal({
             
             {/* Error Message */}
             {error && (
-              <p className="mt-2 text-sm text-error-600 flex items-center">
+              <p className="mt-2 text-sm text-red-400 flex items-center">
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -288,26 +287,26 @@ export default function TrackPriceModal({
 
           {/* Price Comparison */}
           {isValid && thresholdNum > 0 && (
-            <div className="mb-6 p-4 bg-neutral-50 rounded-lg">
+            <div className="mb-6 p-4 bg-white/5 rounded-lg border border-white/10">
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <p className="text-neutral-600 mb-1">Current Price</p>
-                  <p className="font-semibold text-neutral-900">
+                  <p className="text-white/50 mb-1">Current Price</p>
+                  <p className="font-semibold text-white">
                     {formatPrice(currentPrice, product.currency)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-neutral-600 mb-1">Target Price</p>
-                  <p className="font-semibold text-neutral-900">
+                  <p className="text-white/50 mb-1">Target Price</p>
+                  <p className="font-semibold text-white">
                     {formatPrice(thresholdNum, product.currency)}
                   </p>
                 </div>
               </div>
               
               {/* Savings Indicator */}
-              <div className="mt-3 pt-3 border-t border-neutral-200">
+              <div className="mt-3 pt-3 border-t border-white/10">
                 {isBelow ? (
-                  <div className="flex items-center text-success-600">
+                  <div className="flex items-center text-green-400">
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
@@ -316,7 +315,7 @@ export default function TrackPriceModal({
                     </span>
                   </div>
                 ) : (
-                  <div className="flex items-center text-warning-600">
+                  <div className="flex items-center text-yellow-400">
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                     </svg>
@@ -335,14 +334,14 @@ export default function TrackPriceModal({
               type="button"
               onClick={onClose}
               disabled={isTracking}
-              className="flex-1 px-4 py-3 text-neutral-700 bg-neutral-100 rounded-lg hover:bg-neutral-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3 text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!isValid || isTracking}
-              className="flex-1 px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+              className="flex-1 modern-button py-3 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             >
               {isTracking ? (
                 <>
@@ -361,14 +360,14 @@ export default function TrackPriceModal({
 
         {/* Footer Info */}
         <div className="px-6 pb-6">
-          <div className="bg-blue-50 rounded-lg p-3">
+          <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3">
             <div className="flex items-start">
-              <svg className="w-5 h-5 text-blue-500 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-blue-400 mt-0.5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <div className="text-sm text-blue-700">
+              <div className="text-sm text-blue-300">
                 <p className="font-medium mb-1">How it works:</p>
-                <p>We'll check this product's price regularly and notify you when it drops to or below your target price.</p>
+                <p className="text-blue-200/80">We'll check this product's price regularly and notify you when it drops to or below your target price.</p>
               </div>
             </div>
           </div>
