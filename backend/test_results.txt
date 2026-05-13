@@ -1,0 +1,116 @@
+[2026-05-13 22:29:03] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=1> (referer: https://www.google.com/)
+Fetching page 1...
+2026-05-13 22:29:03 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=1> (referer: https://www.google.com/)
+[2026-05-13 22:29:07] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=2> (referer: https://www.google.com/)
+Page 1: Found 17 cards
+Fetching page 2...
+2026-05-13 22:29:07 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=2> (referer: https://www.google.com/)
+[2026-05-13 22:29:14] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=3> (referer: https://www.google.com/)
+Page 2: Found 40 cards
+  [MISSING IMAGE] 《Manilaphone》 USED Manila 12 /  USED Manila12 mini [PRELOVED] | URL: //www.lazada.com.ph/products/pdp-i15411116609.html
+  [MISSING IMAGE] Unlocked 4G Popular I16ProMax 6+128GB Smartphone 7.3inch Large Screen | URL: //www.lazada.com.ph/products/pdp-i5143404266.html
+  [MISSING IMAGE] 17 Pro Max 3.75inch Smartphone 2G Network Memory 1GB+16GB Battery 2000mAh Child Phone Christmas gift | URL: //www.lazada.com.ph/products/pdp-i5339207020.html
+  [MISSING IMAGE] 《Manilaphone》 USED Manila 13 Pro /  USED Manila 13 pm [PRELOVED] | URL: //www.lazada.com.ph/products/pdp-i15417475593.html
+  [MISSING IMAGE] Samsung Galaxy Z Flip7 FE | URL: //www.lazada.com.ph/products/pdp-i5201053548.html
+  [MISSING IMAGE] Samsung | Samsung Pro Plus 256Gb Latest Model - New | URL: //www.lazada.com.ph/products/pdp-i15389560764.html
+  [MISSING IMAGE] Apple MacBook Neo (13-inch, A18 Pro) | URL: //www.lazada.com.ph/products/pdp-i15458431321.html
+  [MISSING IMAGE] Wylie E-SIM Conversion To 2-SIM Card MEP Integration Solution Supports Super Snow IC For iPhone 16 Pro / 16 Pro Max US Version | URL: //www.lazada.com.ph/products/pdp-i15479488723.html
+  [MISSING IMAGE] GREEN APPLE CONCENTRATED FRUIT SODA SYRUP | URL: //www.lazada.com.ph/products/pdp-i5192952687.html
+  [MISSING IMAGE] Happi doggy solo Apple 4" per pc | URL: //www.lazada.com.ph/products/pdp-i5327621039.html
+  [MISSING IMAGE] Apple 5s is on sale at a low price. | URL: //www.lazada.com.ph/products/pdp-i5298197677.html
+  [MISSING IMAGE] MODERN LIGHTS CLASSIC PERFUME PER REAM | URL: //www.lazada.com.ph/products/pdp-i5332835765.html
+  [MISSING IMAGE] 20 pcs. KISKIS IPHONE  / loot bag fillers / paninda / giveaways / party favors | URL: //www.lazada.com.ph/products/pdp-i4480774683.html
+  [MISSING IMAGE] Samsung Galaxy A37 | URL: //www.lazada.com.ph/products/pdp-i15443535033.html
+  [MISSING IMAGE] Camera lens Replacement For IPHONE 12/12MINI/12PRO/12PROMAX/13/13MINI/13PRO/13PROMAX/14PLUS/14PRO/14PROMAX | URL: //www.lazada.com.ph/products/pdp-i4264207738.html
+  [MISSING IMAGE] IPHONE 12 SIMSLOT REPLACEMENT | URL: //www.lazada.com.ph/products/pdp-i3907029164.html
+  [MISSING IMAGE] 【Apple MFi Certified】KUULAA 30W Type C to Lightning Cable for iPhone 14 13 12 pro max Series Fast Charging USB 20W USB C To Lightning Cable Data Cord for Macbook USB Wire Cord PD Charge Cable For iPhone X XR 8 | URL: //www.lazada.com.ph/products/pdp-i2805072731.html
+  [MISSING IMAGE] Camera lens Replacement For IPHONE 7/8PLUS | URL: //www.lazada.com.ph/products/pdp-i4166326004.html
+  [MISSING IMAGE] IPHONE 12PRO MAX SIMSLOT REPLACEMENT | URL: //www.lazada.com.ph/products/pdp-i3907069103.html
+  [MISSING IMAGE] Original Wired Earphones For apple iPhone 17/15/14/13/12/11 Pro Max 7/8Plus XR/XS/SE/X iPad In-Ear Earbuds Lightning USB-C For iphone16 3.5mm interface headset | URL: //www.lazada.com.ph/products/pdp-i5400513315.html
+  [MISSING IMAGE] Apple Green Tshirt for Kids - EFJ Jewel Brand Applegreen T-shirt | URL: //www.lazada.com.ph/products/pdp-i5325532055.html
+  [MISSING IMAGE] [SALE 80%] SWEET DRIED RED APPLE 3F Food 100G/250G/500G/1KG Soft Delicious Seedless | URL: //www.lazada.com.ph/products/pdp-i5397945997.html
+  [MISSING IMAGE] SHPYHT GPPLTE 4G sim for iPhone 6 7 8 Plus X XR XS Max 11 Pro Max 12 Mini 12 Pro Max For ios14.8-ios15 | URL: //www.lazada.com.ph/products/pdp-i4708337191.html
+  [MISSING IMAGE] Apple Ringo Food Nakayoshi picks picks 8pcs for lunch box bento Shinzi Katoh | URL: //www.lazada.com.ph/products/pdp-i15495511549.html
+  [MISSING IMAGE] GOOJODOQ Mini Powerbank 10000mAh 22.5W Fast Charging Built-in Lightning & USB-C Cable Portable Charger LED Digital Display Pocket‑Size Powerbank for iPhone Android Travel Outdoor | URL: //www.lazada.com.ph/products/pdp-i15494794411.html
+  [MISSING IMAGE] Camera lens Replacement For IPHONE 11 | URL: //www.lazada.com.ph/products/pdp-i4246640761.html
+  [MISSING IMAGE] APPLE GREEN (LIGHT GREEN) ACTIVE LIFE ROUND NECK T SHIRT FOR MEN | URL: //www.lazada.com.ph/products/pdp-i4124455597.html
+Fetching page 3...
+2026-05-13 22:29:14 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=3> (referer: https://www.google.com/)
+[2026-05-13 22:29:17] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=4> (referer: https://www.google.com/)
+Page 3: Found 40 cards
+Fetching page 4...
+2026-05-13 22:29:17 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=4> (referer: https://www.google.com/)
+[2026-05-13 22:29:21] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=5> (referer: https://www.google.com/)
+Page 4: Found 40 cards
+Fetching page 5...
+2026-05-13 22:29:21 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=5> (referer: https://www.google.com/)
+[2026-05-13 22:29:25] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=6> (referer: https://www.google.com/)
+Page 5: Found 40 cards
+  [MISSING IMAGE] VIVO Y03 NOVE Y27 4G  NOTE40 4G CAMON 30 PREMER 5G | URL: //www.lazada.com.ph/products/pdp-i4421200073.html
+  [MISSING IMAGE] Wylie E-SIM Conversion To 2-SIM Card MEP Integration Solution Supports Heicard/ DB IC For iPhone 16 Pro / 16 Pro Max US Version | URL: //www.lazada.com.ph/products/pdp-i15484726230.html
+  [MISSING IMAGE] Men's Fashion short sleeve T-shirt yellow Oren original logo iPhone | URL: //www.lazada.com.ph/products/pdp-i5413958477.html
+  [MISSING IMAGE] iPhone 11/iPhone 11 Pro/iPhone 11 Pro Max/iPhone 12/iPhone 12 Pro Max/iPhone 12 Pro/iPhone 13/iPhone 13 Pro/iPhone 13 Pro Max HD Clear Phase Case/Protection Case/Clear Soft Jelly Case | URL: //www.lazada.com.ph/products/pdp-i3474346608.html
+  [MISSING IMAGE] 【9H】iPhone Tempered Glass For 4S 4G 5S 5G 6S 6G 6Plus 6SPlus 7G 8G 7Plus 8Plus X XS 11 PRO XS MAX 11 XR 11 PRO MAX 12 12 PRO 12 PRO MAX 13 MINI 13 13 PRO 13 PRO MAX 14 14 Plus 14 PRO 14 PRO MAX 15 15 PRO 15 PLUS 15 PRO MAX | URL: //www.lazada.com.ph/products/pdp-i985774863.html
+  [MISSING IMAGE] Iph 6G/ 6plus | URL: //www.lazada.com.ph/products/pdp-i3217129916.html
+  [MISSING IMAGE] 【Tinmou】🌟🌟【Hot Sale】🎈 Universal Lens Clip Phone Lens Clip For 37mm 52mm CPL Wide Angle Zoom Fish Eye Macro Filter Lens Clip For IPhone All Smartphones | URL: //www.lazada.com.ph/products/pdp-i15449035702.html
+  [MISSING IMAGE] Fun bug bite apple plush pendant cute surprise bug doll funny bag pendant keychain key | URL: //www.lazada.com.ph/products/pdp-i15478589594.html
+  [MISSING IMAGE] ACHROM ic Refrigerator Stickers Simulated Fruit Apple Tomato Wall Pendant  Lemon Peach 3D Fruit s Kitchen Decor | URL: //www.lazada.com.ph/products/pdp-i15443754506.html
+  [MISSING IMAGE] Luxury Titanium Metallic Color Matte Magnetic Case for iPhone 17 16 Pro Max 15 14 Plus 13 12 For Magsafe Wireless Charge Cover | URL: //www.lazada.com.ph/products/pdp-i15438202972.html
+  [MISSING IMAGE] [COD] E-WOITD GPPLTE 4G sim for iPhone 6 7 8 Plus X XR XS Max 11 Pro Max 12 Mini 12 Pro Max For ios14.8-ios15 | URL: //www.lazada.com.ph/products/pdp-i15445629238.html
+  [MISSING IMAGE] FANNIE ic Refrigerator Stickers Apple Tomato Simulated Fruit Wall Pendant  Lemon Peach 3D Fruit s Kitchen Decor | URL: //www.lazada.com.ph/products/pdp-i15443955343.html
+  [MISSING IMAGE] HFTOY Self Deprecating Bear Cotton Doll 10cm Apple Bib Set Soft Plush Toy for Bedroom Party Decor Present | URL: //www.lazada.com.ph/products/pdp-i15459272627.html
+  [MISSING IMAGE] ONETOONE Phone Upgrade Support flash Glass Cover Case for iPhone XR X to iPhone 11 Pro Max Fake Camera Lens Sticker Seconds Change | URL: //www.lazada.com.ph/products/pdp-i15491230966.html
+  [MISSING IMAGE] Lavalier Mic Live Stream Phone Android iPhone Wireless | URL: //www.lazada.com.ph/products/pdp-i5315338762.html
+  [MISSING IMAGE] Mobile Glass Seconds Change Fake Camera Lens Sticker for iPhone XR X to iPhone 11 Pro Max Cover Case | URL: //www.lazada.com.ph/products/pdp-i3627297923.html
+Fetching page 6...
+2026-05-13 22:29:25 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=6> (referer: https://www.google.com/)
+[2026-05-13 22:29:29] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=7> (referer: https://www.google.com/)
+Page 6: Found 40 cards
+  [MISSING IMAGE]  Rèälmê Note 50 16GB RAM 512GB ROM | Snapdragon 865 | 5000mah  4G+5G |M|Y|S|T|E|R|Y|B|O|X| | URL: //www.lazada.com.ph/products/pdp-i5179700517.html
+  [MISSING IMAGE] iPhone 16pro 16promax 16plus 15 pro 15pro max14 Pro Max,14 Pro,14,13, 13 Pro,13 Pro Max,13Mini ,12，12 Pro Max,11,11Pro,11Pro Max Tempered Glass Screen Protector (Clear) | URL: //www.lazada.com.ph/products/pdp-i394600303.html
+  [MISSING IMAGE] Hijab C#YW016 High Quality Chiffon Hijab muslim chiffon carf shawl | URL: //www.lazada.com.ph/products/pdp-i4052463218.html
+  [MISSING IMAGE] Spigen iPhone 12 Mini Case Ultra Hybrid | URL: //www.lazada.com.ph/products/pdp-i1294788463.html
+  [MISSING IMAGE] CLToys | Alloy Pulling Sound and Light Toy Trike | URL: //www.lazada.com.ph/products/pdp-i5378758607.html
+  [MISSING IMAGE] Limited Edition Shell Collaborative M4 GT3 1:44 Car Model | URL: //www.lazada.com.ph/products/pdp-i15394102723.html
+  [MISSING IMAGE] Spigen iPhone SE (2020)/ iPhone 8 / iPhone 7 Case Neo Hybrid Crystal Glitter Champagne Gold | URL: //www.lazada.com.ph/products/pdp-i141961524.html
+  [MISSING IMAGE] CANSHILE | Rust Stain Design Phone Case Compatible with Multiple iPhone Models | URL: //www.lazada.com.ph/products/pdp-i5375813565.html
+  [MISSING IMAGE] Seconds Change Phone Upgrade Fake Camera Lens Sticker for iPhone XR X to iPhone 11 Pro Max | URL: //www.lazada.com.ph/products/pdp-i3599654249.html
+  [MISSING IMAGE] NAPKERY Protective Back WebCam Cover Sticker Plastic Privacy Protector  Phone Lens Camera Lens Cap for iPhone 16Pro/16 ProMax | URL: //www.lazada.com.ph/products/pdp-i15463336861.html
+  [MISSING IMAGE] Simulation fruit persimmon apple pear pendant lemon tomato pumpkin doll backpack pendant girl plush toy woman | URL: //www.lazada.com.ph/products/pdp-i15488985625.html
+  [MISSING IMAGE] CASUAL V-NECK SHIRT WITH POCKET FOR ADULT STRETCHABLE AND COMFORTABLE | URL: //www.lazada.com.ph/products/pdp-i1654604952.html
+  [MISSING IMAGE] INTOONE Phone Upgrade Support flash Glass Cover Case for iPhone XR X to iPhone 11 Pro Max Fake Camera Lens Sticker Seconds Change | URL: //www.lazada.com.ph/products/pdp-i15483544303.html
+  [MISSING IMAGE] BENYTRO Mobile Support flash Glass Seconds Change Fake Camera Lens Sticker Cover Case for iPhone XR X to iPhone 11 Pro Max | URL: //www.lazada.com.ph/products/pdp-i15485695157.html
+  [MISSING IMAGE] INNEWIN Mobile Support flash Glass Cover Case for iPhone XR X to iPhone 11 Pro Max Seconds Change Fake Camera Lens Sticker | URL: //www.lazada.com.ph/products/pdp-i15483456699.html
+  [MISSING IMAGE] SWEET DRIED RED APPLE 3F Food Soft Delicious Seedless 100g/250g/500g | URL: //www.lazada.com.ph/products/pdp-i4932410267.html
+  [MISSING IMAGE] iPhon e 6/6S/6+/6 Plus/7/7S/7+/7S+/7 Plus/8/8s/8+/8 Plus/X/XS/XS Max/11/11 pro/11 pro max/12/12 pro max/13 mini/13/13 pro/13 pro max Ordinary Tempered Glass Touch Screen Protector Protective Film | URL: //www.lazada.com.ph/products/pdp-i3084979184.html
+  [MISSING IMAGE] iPhone Phone Stream Live for Mic Lavalier Microphone Lapel Wireless Android | URL: //www.lazada.com.ph/products/pdp-i5315228836.html
+  [MISSING IMAGE] SADIE Phone Upgrade Support flash Glass Cover Case Seconds Change Fake Camera Lens Sticker for iPhone XR X to iPhone 11 Pro Max | URL: //www.lazada.com.ph/products/pdp-i15460139878.html
+  [MISSING IMAGE] MILDPETAL Orange Back Sticker Protection Cover Anti Scratch Full Cover Camera Lens Cover Durable Anti-Shatter Full Cover Protector for iPhone 17Pro/17 Pro Max Phone Protection Accessories | URL: //www.lazada.com.ph/products/pdp-i15459989783.html
+  [MISSING IMAGE] Cute cute hug small fish big eyes black cat plush doll couple bag pendant creative apple small black cat keychain | URL: //www.lazada.com.ph/products/pdp-i15481787333.html
+  [MISSING IMAGE] Simulation apple throw pillow plush toy red apple doll safety fruit ornament children's Christmas gift plus logo | URL: //www.lazada.com.ph/products/pdp-i15489162859.html
+  [MISSING IMAGE] 3F FOOD SWEET DRIED RED APPLE 250g-500g-1kg Isang masustansyang meryenda na mayaman sa mga bitamina at mineral na mabuti para sa kalusugan | URL: //www.lazada.com.ph/products/pdp-i4931888748.html
+  [MISSING IMAGE] For iPhone IP11/XR IP11Pro IP11ProMax IP12 IP12Mini IP12Pro IP12ProMax IP13Mini IP13 IP13Pro IP13ProMax IP14 IP14Pro IP14Plus IP14ProMax IP15 IP15Plus IP15Pro IP15ProMax IP16 IP16Plus IP16Pro IP16ProMax Tempered glass with Full Edge Protection | URL: //www.lazada.com.ph/products/pdp-i3182426100.html
+  [MISSING IMAGE] For  iPhone IP13 13 Mini 13Pro 13Pro Max IP14 14Plus 14Pro 14Pro Max IP15 15Plus 15Pro 15Pro Max IP16 16Plus 16Pro 16Pro MaxTempered glass with Full Edge Protection | URL: //www.lazada.com.ph/products/pdp-i4846798454.html
+  [MISSING IMAGE] MADEWITH Luxury Support flash Screen Protector Fake Camera Lens Sticker for iPhone XR X to iPhone 11 Pro Max Cover Case Seconds Change | URL: //www.lazada.com.ph/products/pdp-i15459876722.html
+  [MISSING IMAGE] 3PCS Tempered Glass Film For iPhone 17e 5G Full Cover Screen Protector HD Clear Glass Film For iPhone 17E Accessories | URL: //www.lazada.com.ph/products/pdp-i15415840461.html
+  [MISSING IMAGE] LG LG-B220 Dual Sim Basic Phone Keypad Phone 950 mAh | URL: //www.lazada.com.ph/products/pdp-i4418869370.html
+  [MISSING IMAGE] Iphone 6 , 6plus , 7 , 7plus , 8plus , 11, 11pro , 11promax , 12 , 12pro , 12 promax , 13 , 13pro , 13 pro max. armor case with ring stand | URL: //www.lazada.com.ph/products/pdp-i2895004272.html
+Fetching page 7...
+2026-05-13 22:29:29 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=7> (referer: https://www.google.com/)
+[2026-05-13 22:29:34] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=8> (referer: https://www.google.com/)
+Page 7: Found 40 cards
+Fetching page 8...
+2026-05-13 22:29:34 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=8> (referer: https://www.google.com/)
+[2026-05-13 22:29:38] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=9> (referer: https://www.google.com/)
+Page 8: Found 40 cards
+Fetching page 9...
+2026-05-13 22:29:38 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=9> (referer: https://www.google.com/)
+[2026-05-13 22:29:42] INFO: Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=10> (referer: https://www.google.com/)
+Page 9: Found 40 cards
+Fetching page 10...
+2026-05-13 22:29:42 - scrapling - INFO - Fetched (200) <GET https://www.lazada.com.ph/catalog/?q=iphone&page=10> (referer: https://www.google.com/)
+Page 10: Found 40 cards
+------------------------------
+Total Products Checked: 377
+Successfully Extracted Images: 305 (80.9%)
+Missing Images: 72

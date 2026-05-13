@@ -12,12 +12,11 @@
  */
 
 import { SearchResults } from '../types/product';
-import { scrapeLazada, ScrapedProduct } from './clientScraper';
+import api from './api';
 import { getMockProducts } from './mockData';
 
 /**
- * Search for products using CLIENT-SIDE scraping.
- * This runs in the user's browser, avoiding server costs and bot detection.
+ * Search for products using backend scraping API.
  * 
  * @param query - Search query string
  * @param maxResults - Maximum results per platform (default 40)
@@ -32,36 +31,27 @@ export async function searchProducts(
   sortBy: string = 'best_match'
 ): Promise<SearchResults> {
   try {
-    // Try client-side scraping first
-    const lazadaResults = await scrapeLazada(query, page, maxResults, sortBy);
+    // Call backend API
+    const response = await api.get('/products/search', {
+      params: {
+        q: query,
+        max_results: maxResults,
+        page: page,
+        sort_by: sortBy
+      }
+    });
     
-    // If we got results, return them
-    if (lazadaResults.results.length > 0) {
-      return {
-        query: lazadaResults.query,
-        results: lazadaResults.results.map((product: ScrapedProduct) => ({
-          ...product,
-          scraped_at: new Date().toISOString()
-        })),
-        total_results: lazadaResults.total_results,
-        platforms_searched: ['lazada'],
-        platforms_failed: [],
-        search_time_seconds: lazadaResults.search_time_seconds
-      };
-    }
-    
-    // If no results, fall through to mock data
-    throw new Error('No results from scraping');
+    return response.data;
     
   } catch (error) {
-    console.warn('Scraping failed, using mock data:', error);
+    console.warn('Backend search failed, using mock data:', error);
     
     // Use mock data for demonstration
     const mockProducts = getMockProducts(query, maxResults);
     
     return {
       query,
-      results: mockProducts.map((product: ScrapedProduct) => ({
+      results: mockProducts.map((product) => ({
         ...product,
         scraped_at: new Date().toISOString()
       })),

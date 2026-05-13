@@ -82,6 +82,10 @@ class AuthService:
             raise AuthenticationError("Invalid email or password")
         
         # Verify password
+        if not user.password_hash:
+            logger.warning(f"Login failed: Account uses OAuth - {login_data.email}")
+            raise AuthenticationError("Please log in using Google for this account")
+            
         if not verify_password(login_data.password, user.password_hash):
             logger.warning(f"Login failed: Invalid password - {login_data.email}")
             raise AuthenticationError("Invalid email or password")

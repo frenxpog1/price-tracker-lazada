@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, Query, HTTPException, status
 
 from app.schemas.product import SearchResults
 from app.services.search_service import ProductSearchService
-from app.dependencies import get_current_user_id
+from app.dependencies import get_current_user_id, get_optional_current_user_id
 from app.core.logging import get_logger
 
 logger = get_logger(__name__)
@@ -19,7 +19,7 @@ async def search_products(
     max_results: int = Query(40, ge=1, le=100, description="Maximum results per platform"),
     page: int = Query(1, ge=1, description="Page number (1-indexed)"),
     sort_by: str = Query("best_match", description="Sort: best_match, price_asc, price_desc"),
-    user_id: str = Depends(get_current_user_id)
+    user_id: str = Depends(get_optional_current_user_id)
 ):
     """
     Search for products across all supported e-commerce platforms.

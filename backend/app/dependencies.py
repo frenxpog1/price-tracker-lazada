@@ -12,7 +12,7 @@ from app.core.exceptions import AuthenticationError, AuthorizationError
 
 
 # HTTP Bearer token security scheme
-security = HTTPBearer()
+security = HTTPBearer(auto_error=False)
 
 
 async def get_current_user_id(
@@ -61,7 +61,8 @@ async def get_current_user_id(
 
 
 async def get_optional_current_user_id(
-    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security),
+    db: Session = Depends(get_db)
 ) -> Optional[str]:
     """
     Extract user ID from JWT token if present, otherwise return None.
@@ -77,6 +78,6 @@ async def get_optional_current_user_id(
         return None
     
     try:
-        return await get_current_user_id(credentials)
+        return await get_current_user_id(credentials, db)
     except HTTPException:
         return None
